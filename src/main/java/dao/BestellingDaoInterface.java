@@ -2,7 +2,7 @@ package dao;
 import java.io.Serializable;
 import java.util.*;
 
-import business.Bestelling;
+import pojo.Bestelling;
 
 
 public interface BestellingDaoInterface <T, Id extends Serializable> {

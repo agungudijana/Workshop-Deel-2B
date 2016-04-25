@@ -5,7 +5,6 @@ import java.util.*;
 import java.io.Serializable;
 import java.lang.reflect.ParameterizedType;
 import java.lang.reflect.Type;
-import business.*;
 
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
@@ -14,6 +13,8 @@ import org.hibernate.boot.registry.StandardServiceRegistryBuilder;
 import org.hibernate.cfg.Configuration;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+
+import pojo.*;
 	
 
 public class GenericDao<T> implements GenericDaoInterface<T, Long> {

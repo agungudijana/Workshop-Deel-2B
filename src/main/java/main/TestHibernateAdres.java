@@ -6,7 +6,7 @@ import java.util.Scanner;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import business.*;
+import pojo.*;
 import service.AdresDaoService;
 import service.KlantAdresDaoService;
 import service.KlantDaoService;

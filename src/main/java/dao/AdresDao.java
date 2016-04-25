@@ -10,17 +10,17 @@ import org.hibernate.cfg.Configuration;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import business.Account;
-import business.Adres;
-import business.AdresType;
-import business.Artikel;
-import business.BestelArtikel;
-import business.Bestelling;
-import business.Betaalwijze;
-import business.Betaling;
-import business.Factuur;
-import business.Klant;
-import business.KlantAdres;
+import pojo.Account;
+import pojo.Adres;
+import pojo.AdresType;
+import pojo.Artikel;
+import pojo.BestelArtikel;
+import pojo.Bestelling;
+import pojo.Betaalwijze;
+import pojo.Betaling;
+import pojo.Factuur;
+import pojo.Klant;
+import pojo.KlantAdres;
 
 
 public class AdresDao implements AdresDaoInterface<Adres, Long> {

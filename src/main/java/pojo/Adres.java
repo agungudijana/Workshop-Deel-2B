@@ -1,4 +1,4 @@
-package business;
+package pojo;
 
 import java.util.HashSet;
 import java.util.Objects;

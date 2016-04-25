@@ -3,7 +3,7 @@ package dao;
 import java.io.Serializable;
 import java.util.List;
 
-import business.KlantAdres;
+import pojo.KlantAdres;
 
 public interface KlantAdresDaoInterface <T, Id extends Serializable>  {
 		public void persist(T entity);

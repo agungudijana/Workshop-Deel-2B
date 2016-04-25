@@ -1,7 +1,8 @@
 package service;
 
-import business.Adres;
 import dao.AdresDao;
+import pojo.Adres;
+
 import java.util.List;
 
 public class AdresDaoService {		

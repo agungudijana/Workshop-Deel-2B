@@ -2,8 +2,8 @@ package service;
 
 import java.util.List;
 
-import business.KlantAdres;
 import dao.KlantAdresDao;
+import pojo.KlantAdres;
 
 public class KlantAdresDaoService {			
 			private static KlantAdresDao klantAdresDaoImpl;

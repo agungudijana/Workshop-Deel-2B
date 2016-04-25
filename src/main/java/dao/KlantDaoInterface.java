@@ -2,7 +2,7 @@ package dao;
 import java.io.Serializable;
 import java.util.*;
 
-import business.Klant;
+import pojo.Klant;
 
 
 public interface KlantDaoInterface <T, Id extends Serializable> {

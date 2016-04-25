@@ -1,4 +1,4 @@
-package business;
+package pojo;
 
 import java.util.Objects;
 import java.util.Random;

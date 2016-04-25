@@ -1,8 +1,6 @@
 package main;
 
 
-import business.*;
-
 import service.*;
 
 import java.util.List;
@@ -11,6 +9,8 @@ import java.util.Scanner;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+
+import pojo.*;
 
 
 public class TestHibernateGeneric { 
