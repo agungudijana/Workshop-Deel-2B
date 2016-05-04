@@ -2,13 +2,17 @@ package service;
 
 import java.util.List;
 
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
+
 import dao.BestelArtikelDao;
 import pojo.*;
 
  
-
+@Service
 public class BestelArtikelDaoService {
 	
+	@Autowired
 	private static BestelArtikelDao bestelArtikelDao;
 
 	public BestelArtikelDaoService() {

@@ -10,10 +10,11 @@ import org.hibernate.boot.registry.StandardServiceRegistryBuilder;
 import org.hibernate.cfg.Configuration;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.stereotype.Repository;
 
 import pojo.*;
 	
-
+@Repository
 public class FactuurDao implements FactuurDaoInterface<Factuur, Long> {
 
 	private static final Logger logger =  LoggerFactory.getLogger(FactuurDao.class);

@@ -1,7 +1,7 @@
 package main;
 
-
 import service.*;
+import springconfig.BestellingConfig;
 
 import java.util.Date;
 import java.util.List;
@@ -10,6 +10,8 @@ import java.util.Scanner;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.context.ApplicationContext;
+import org.springframework.context.annotation.AnnotationConfigApplicationContext;
 
 import pojo.*;
 
@@ -28,6 +30,8 @@ public class TestHibernateBestelling {
 		BetalingDaoService betalingService = new BetalingDaoService();
 		CheckExistenceInDatabase checkExistenceInDatabase = new CheckExistenceInDatabase();
 
+
+		
 
 		System.out.println("\t-------------------------");
 		System.out.println("\t Test Bestelling Domain  ");
@@ -50,7 +54,18 @@ public class TestHibernateBestelling {
 
 				logger.info("*** Persist - start ***");
 
-				Bestelling nieuweBestelling = new Bestelling();
+				//Bestelling nieuweBestelling = new Bestelling();
+				
+				//try {
+				ApplicationContext ctx = new AnnotationConfigApplicationContext(BestellingConfig.class);
+		    	
+				/*}
+				catch(Exception be) {
+					// zinnige code
+				}*/
+				
+				Bestelling nieuweBestelling = ctx.getBean(Bestelling.class); //ipv new Bestelling();
+		    		    	
 				BestelArtikel nieuweBestellingHasArtikel = new BestelArtikel();
 				Factuur nieuweFactuur = new Factuur();
 				Betaling nieuweBetaling = new Betaling();
