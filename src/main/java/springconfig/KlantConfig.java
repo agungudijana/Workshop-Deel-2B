@@ -7,17 +7,17 @@ import service.*;
 
 
 @Configuration
-public class BestellingConfig {
+public class KlantConfig {
+	
+	@Bean
+	public Klant klant(){
+		return new Klant();
+	}
 	
 	@Bean
 	public Bestelling bestelling(){
 		return new Bestelling();
 	}
-	
-	/*@Bean
-	public BestelArtikel bestelartikel(){
-		return new BestelArtikel();
-	} */
 
 	@Bean
 	public Factuur factuur(){
@@ -25,13 +25,13 @@ public class BestellingConfig {
 	}
 
 	@Bean
-	public Klant klant(){
-		return new Klant();
+	public Account account(){
+		return new Account();
 	}
 	
 	@Bean
-	public BestellingDaoService bestellingDaoService(){
-		return new BestellingDaoService();
+	public KlantDaoService klantDaoService(){
+		return new KlantDaoService();
 	}
 	
 	

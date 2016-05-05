@@ -1,7 +1,7 @@
 package main;
 
 import service.*;
-import springconfig.BestellingConfig;
+import springconfig.*;
 
 import java.util.Date;
 import java.util.List;
@@ -22,17 +22,35 @@ public class TestHibernateBestelling {
 
 	public static void main(String[] args){
 
-		BestellingDaoService bestellingService = new BestellingDaoService();
-		BestelArtikelDaoService bestellingHasArtikelService = new BestelArtikelDaoService();
-		KlantDaoService klantService = new KlantDaoService();
-		ArtikelDaoService artikelService = new ArtikelDaoService();
-		FactuurDaoService factuurService = new FactuurDaoService();
-		BetalingDaoService betalingService = new BetalingDaoService();
-		CheckExistenceInDatabase checkExistenceInDatabase = new CheckExistenceInDatabase();
-
-
+		/* uitgecomment ivm implementeren van Spring
+		// BestellingDaoService bestellingService = new BestellingDaoService();
+		// BestelArtikelDaoService bestellingHasArtikelService = new BestelArtikelDaoService();
+		// KlantDaoService klantService = new KlantDaoService();
+		// ArtikelDaoService artikelService = new ArtikelDaoService();
+		// FactuurDaoService factuurService = new FactuurDaoService();
+		// BetalingDaoService betalingService = new BetalingDaoService();
+		// CheckExistenceInDatabase checkExistenceInDatabase = new CheckExistenceInDatabase();
+		 */ 
+		 
+		// Onderstaande blok toegevoegd op 4/5 mei 2016 AU, ivm Spring implementatie
+		AnnotationConfigApplicationContext ctx = 
+				new AnnotationConfigApplicationContext
+				(BestellingConfig.class, BestelArtikelConfig.class, 
+						BetalingConfig.class, FactuurConfig.class, 
+						KlantConfig.class, ArtikelConfig.class,
+						CheckExistenceInDatabase.class);
+			
+		BestellingDaoService bestellingService = ctx.getBean(BestellingDaoService.class); 
+		BestelArtikelDaoService bestellingHasArtikelService = ctx.getBean(BestelArtikelDaoService.class); 
+		KlantDaoService klantService = ctx.getBean(KlantDaoService.class);
+		ArtikelDaoService artikelService = ctx.getBean(ArtikelDaoService.class);
+		FactuurDaoService factuurService = ctx.getBean(FactuurDaoService.class);
+		BetalingDaoService betalingService = ctx.getBean(BetalingDaoService.class);
+		CheckExistenceInDatabase checkExistenceInDatabase = ctx.getBean(CheckExistenceInDatabase.class);
+		// einde nieuw toegevoegd blok
+			
 		
-
+		
 		System.out.println("\t-------------------------");
 		System.out.println("\t Test Bestelling Domain  ");
 		System.out.println("\t-------------------------");
@@ -54,21 +72,14 @@ public class TestHibernateBestelling {
 
 				logger.info("*** Persist - start ***");
 
+				// 4/5 mei 2016. AU. uitgecomment ivm Spring implementatie
 				//Bestelling nieuweBestelling = new Bestelling();
-				
-				//try {
-				ApplicationContext ctx = new AnnotationConfigApplicationContext(BestellingConfig.class);
-		    	
-				/*}
-				catch(Exception be) {
-					// zinnige code
-				}*/
-				
-				Bestelling nieuweBestelling = ctx.getBean(Bestelling.class); //ipv new Bestelling();
-		    		    	
-				BestelArtikel nieuweBestellingHasArtikel = new BestelArtikel();
-				Factuur nieuweFactuur = new Factuur();
-				Betaling nieuweBetaling = new Betaling();
+					
+				// 4/5 mei 2016. AU. aangepast ivm Spring implementatie
+				Bestelling nieuweBestelling = ctx.getBean(Bestelling.class); //ipv new Bestelling();    	
+				BestelArtikel nieuweBestellingHasArtikel = ctx.getBean(BestelArtikel.class);
+				Factuur nieuweFactuur = ctx.getBean(Factuur.class);
+				Betaling nieuweBetaling = ctx.getBean(Betaling.class);
 
 				input.nextLine();
 				System.out.print("Voer ID van klant in waarvoor je een bestelling wil plaatsen: ");
@@ -276,63 +287,7 @@ public class TestHibernateBestelling {
 					System.out.print("Voer ID van artikel in die je wilt toevoegen (0 = stoppen met artikelen toevoegen): ");
 					artikel_id = input.nextLong();
 
-				} while (artikel_id  != 0 )  ;
-
-				/* Factuur updateFactuur = factuurService.findById(bestelling_id);
-
-
-				logger.info("object bestaandeFactuur " + updateFactuur);
-
-				updateFactuur.setBestelling(updateBestelling);
-				updateFactuur.setFactuurDatum();
-				long factuur_id = updateFactuur.getId();
-
-				logger.info("object bestaandeFactuur na verandering bestelling " + updateBestelling);
-
-				updateBestelArtikel.setArtikel(artikelService.findById(artikel_id));
-				Betaling updateBetaling = betalingService.findById(factuur_id);
-
-				updateBetaling.setBetaalDatum();
-
-
-				System.out.print("Hoe wil je betalen? 1 = Contant, 2 = Pinbetaling, 3 = IDeal, 4 = Creditcard : ");
-				betaalwijze = input.nextInt();
-
-				switch (betaalwijze) {
-				case 1:
-					updateBetaling.setBetaalwijze(updateBetaling.getBetaalwijze().Contant);
-					break;
-				case 2:
-					updateBetaling.setBetaalwijze(updateBetaling.getBetaalwijze().Pinbetaling);
-					break;
-				case 3:
-					updateBetaling.setBetaalwijze(updateBetaling.getBetaalwijze().IDeal);
-					break;
-				case 4:
-					updateBetaling.setBetaalwijze(updateBetaling.getBetaalwijze().Creditcard);
-					break;				
-				default:
-					updateBetaling.setBetaalwijze(updateBetaling.getBetaalwijze().Pinbetaling);
-				} 
-
-				System.out.print("Voer overige betalingsgegevens in c.q. een beschrijving: ");
-				input.nextLine();
-				betalingsGegevens = input.nextLine();
-
-				updateBetaling.setBetalingsGegevens(betalingsGegevens);
-				// updateBetaling.setKlant(klantService.findById(klant_id));			
-				updateBetaling.setFactuur(updateFactuur);
-
-				betalingService.update(updateBetaling);
-
-				logger.info("object updateBetaling bevat:" + updateBetaling);									
-				logger.info("object updateFactuur VOOR  \"nieuweFactuur.betalingSet.add(nieuweBetaling) \" " + updateFactuur);
-
-				updateFactuur.betalingSet.add(updateBetaling);
-
-				logger.info("object updateFactuur NA  \"nieuweFactuur.betalingSet.add(nieuweBetaling) \" " + updateFactuur);
-
-				//factuurService.persist(nieuweFactuur);	 */
+				} while (artikel_id  != 0 )  ;			
 
 				logger.info("*** Update - end ***"); 
 
@@ -402,3 +357,4 @@ public class TestHibernateBestelling {
 	}
 
 }
+	
