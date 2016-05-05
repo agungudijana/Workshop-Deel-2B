@@ -2,6 +2,7 @@ package main;
 
 
 import service.*;
+import springconfig.*;
 
 import java.util.List;
 import java.util.Scanner;
@@ -9,19 +10,25 @@ import java.util.Scanner;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.context.ApplicationContext;
+import org.springframework.context.annotation.AnnotationConfigApplicationContext;
 
 import pojo.*;
 
 
 public class TestHibernateAccount { 
 
-	private static final Logger logger =  LoggerFactory.getLogger(TestHibernateBestelling.class);
+	private static final Logger logger =  LoggerFactory.getLogger(TestHibernateAccount.class);
 
 	public static void main(String[] args){
 
 		KlantDaoService klantService = new KlantDaoService();
 		AccountDaoService accountService = new AccountDaoService();
-
+		
+		ApplicationContext ctx = new AnnotationConfigApplicationContext(SpringConfig.class);
+		Klant klant = ctx.getBean(Klant.class);
+		Account account = ctx.getBean(Account.class);
+		
 		System.out.println("\t-------------------------");
 		System.out.println("\t Test Account Domain  ");
 		System.out.println("\t-------------------------");
@@ -41,30 +48,30 @@ public class TestHibernateAccount {
 			switch (keuze) {
 			case 1:
 				System.out.println("*** Persist - start ***");
-				Account nieuweAccount = new Account();
+				//Account nieuweAccount = new Account();
 				input.nextLine();
 				System.out.print("Voer uw klant ID in waarvoor u een Account wilt aanmaken: ");
 				long klant_id = input.nextLong();	
 
-				nieuweAccount.setDateCreated();
-				nieuweAccount.setKlant(klantService.findById(klant_id));
+				account.setDateCreated();
+				account.setKlant(klantService.findById(klant_id));
 				
 				System.out.print("Voer de naam van uw nieuwe account in: ");
 				String nieuweAccountNaam = input.next();	
 												
-				nieuweAccount.setAccountNaam(nieuweAccountNaam);
+				account.setAccountNaam(nieuweAccountNaam);
 				
 
-				System.out.println("Toe te voegen nieuwe account: " + nieuweAccount);
-				accountService.persist(nieuweAccount);
-				System.out.println("Account toegevoegd: " + nieuweAccount);
+				System.out.println("Toe te voegen nieuwe account: " + account);
+				accountService.persist(account);
+				System.out.println("Account toegevoegd: " + account);
 				
 				break;
 
 			case 2: //werkt nog niet
 				
 				System.out.println("*** Update - start ***");
-				Account bestaandeAccount = new Account();	
+				//Account bestaandeAccount = new Account();	
 				
 				System.out.println("Voer uw klant id in: ");
 				klant_id = input.nextLong();
@@ -76,13 +83,13 @@ public class TestHibernateAccount {
 				String accountNaam = input.next();
 				
 				
-				bestaandeAccount.setId(account_id);
-				bestaandeAccount.setKlant(klantService.findById(klant_id));
-				bestaandeAccount.setAccountNaam(accountNaam);
-				bestaandeAccount.setDateCreated();
+				account.setId(account_id);
+				account.setKlant(klantService.findById(klant_id));
+				account.setAccountNaam(accountNaam);
+				account.setDateCreated();
 
-				logger.info("Account is: " + bestaandeAccount);
-				accountService.update(bestaandeAccount); 
+				logger.info("Account is: " + account);
+				accountService.update(account); 
 				
 				break;
 
@@ -98,7 +105,7 @@ public class TestHibernateAccount {
 
 			case 4:
 				System.out.println("*** Delete - start ***");
-				bestaandeAccount = new Account();	
+				//bestaandeAccount = new Account();	
 				
 				System.out.print("Voer het ID in van uw account die u wilt deleten: ");				
 				account_id = input.nextLong();				

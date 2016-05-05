@@ -9,10 +9,11 @@ import org.hibernate.boot.registry.StandardServiceRegistryBuilder;
 import org.hibernate.cfg.Configuration;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.stereotype.Repository;
 
 import pojo.*;
 	
-
+@Repository
 public class ArtikelDao implements AccountDaoInterface<Artikel, Long> {
 
 	private static final Logger logger =  LoggerFactory.getLogger(ArtikelDao.class);

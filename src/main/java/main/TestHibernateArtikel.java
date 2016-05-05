@@ -2,6 +2,7 @@ package main;
 
 
 import service.*;
+import springconfig.*;
 
 import java.util.List;
 import java.util.Scanner;
@@ -9,6 +10,8 @@ import java.util.Scanner;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.context.ApplicationContext;
+import org.springframework.context.annotation.AnnotationConfigApplicationContext;
 
 import pojo.*;
 
@@ -20,7 +23,11 @@ public class TestHibernateArtikel {
 	public static void main(String[] args){
 
 		ArtikelDaoService artikelService = new ArtikelDaoService();
-
+		
+		ApplicationContext ctx = new AnnotationConfigApplicationContext(SpringConfig.class);
+		Klant klant = ctx.getBean(Klant.class);
+		Artikel artikel = ctx.getBean(Artikel.class);
+		
 		System.out.println("\t-------------------------");
 		System.out.println("\t Test Artikel Domain  ");
 		System.out.println("\t-------------------------");
@@ -39,27 +46,27 @@ public class TestHibernateArtikel {
 			switch (keuze) {
 			case 1:
 				System.out.println("*** Persist - start ***");
-				Artikel nieuweArtikel = new Artikel();
+				//Artikel nieuweArtikel = new Artikel();
 				
 				input.nextLine();
 				System.out.println("Voer het artikelnaam in wat in het assortiment geplaatst wordt: ");
 				String artikelNaam = input.nextLine();		
 				
-				nieuweArtikel.setArtikel_naam(artikelNaam);
-				nieuweArtikel.setArtikel_nummer();
+				artikel.setArtikel_naam(artikelNaam);
+				artikel.setArtikel_nummer();
 				
 				System.out.println("Voer de omschrijving van het artikel in: ");
 				String artikelOmschrijving = input.nextLine();	
 												
-				nieuweArtikel.setOmschrijving(artikelOmschrijving);
+				artikel.setOmschrijving(artikelOmschrijving);
 				
 				System.out.println("Bepaal de prijs van het artikel: ");
 				double artikelPrijs = input.nextDouble();	
 				
-				nieuweArtikel.setArtikel_prijs(artikelPrijs);
+				artikel.setArtikel_prijs(artikelPrijs);
 				
-				artikelService.persist(nieuweArtikel);
-				System.out.println("Artikel toegevoegd: " + nieuweArtikel);
+				artikelService.persist(artikel);
+				System.out.println("Artikel toegevoegd: " + artikel);
 				
 				
 				break;
@@ -72,28 +79,28 @@ public class TestHibernateArtikel {
 				long artikelId = input.nextLong();
 				input.nextLine();
 				
-				Artikel bestaandeArtikel = artikelService.findById(artikelId);
+				artikel = artikelService.findById(artikelId);
 				
 				System.out.println("Voer de naam van het artikel in: ");
 				String nieuwArtikelNaam = input.nextLine();
 				
-				bestaandeArtikel.setArtikel_naam(nieuwArtikelNaam);
+				artikel.setArtikel_naam(nieuwArtikelNaam);
 				
 				System.out.println("Voer de artikel omschrijving in: ");
 				String nieuwArtikelOmschrijving = input.nextLine();
 				
-				bestaandeArtikel.setOmschrijving(nieuwArtikelOmschrijving);	
+				artikel.setOmschrijving(nieuwArtikelOmschrijving);	
 				
 				System.out.println("Bepaal de prijs van het artikel: ");
 				double nieuwArtikelPrijs = input.nextDouble();
 				
-				bestaandeArtikel.setArtikel_prijs(nieuwArtikelPrijs);
+				artikel.setArtikel_prijs(nieuwArtikelPrijs);
 				
 				System.out.println("het artikelnummer blijft hetzelfde");
 				//System.out.println(artikelService.findById(artikelId));			
 
-				logger.info("Artikel is: " + bestaandeArtikel);
-				artikelService.update(bestaandeArtikel); 
+				logger.info("Artikel is: " + artikel);
+				artikelService.update(artikel); 
 				
 				
 				break;
@@ -110,7 +117,7 @@ public class TestHibernateArtikel {
 
 			case 4:
 				System.out.println("*** Delete - start ***");
-				bestaandeArtikel = new Artikel();	
+				//bestaandeArtikel = new Artikel();	
 				
 				System.out.print("Voer het ID in van het artikel die je wil deleten: ");				
 				artikelId = input.nextLong();				

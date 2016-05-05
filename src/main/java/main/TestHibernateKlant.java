@@ -2,6 +2,7 @@ package main;
 
 
 import service.*;
+import springconfig.*;
 
 import java.util.List;
 import java.util.Scanner;
@@ -9,6 +10,8 @@ import java.util.Scanner;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.context.ApplicationContext;
+import org.springframework.context.annotation.AnnotationConfigApplicationContext;
 
 import pojo.*;
 
@@ -16,11 +19,17 @@ import pojo.*;
 public class TestHibernateKlant { 
 
 	private static final Logger logger =  LoggerFactory.getLogger(TestHibernateKlant.class);
-
+	
+	
+	
 	public static void main(String[] args){
 
 		KlantDaoService service = new KlantDaoService();
+		
+		ApplicationContext ctx = new AnnotationConfigApplicationContext(SpringConfig.class);
+		Klant klant = ctx.getBean(Klant.class);
 
+		
 		System.out.println("\t-------------------");
 		System.out.println("\t Test Klant Domain  ");
 		System.out.println("\t-------------------");
@@ -39,8 +48,9 @@ public class TestHibernateKlant {
 
 			switch (keuze) {
 			case 1:
+				
 				System.out.println("*** Persist - start ***");
-				Klant nieuweKlant = new Klant();
+				//Klant nieuweKlant = new Klant();
 				input.nextLine();
 				System.out.print("Voer voornaam in: ");
 				String voornaam = input.nextLine();		
@@ -51,15 +61,15 @@ public class TestHibernateKlant {
 				System.out.print("Voer email in: ");
 				String email = input.nextLine();
 
-				nieuweKlant.setVoornaam(voornaam);						
-				nieuweKlant.setTussenvoegsel(tussenvoegsel);
-				nieuweKlant.setAchternaam(achternaam);
-				nieuweKlant.setEmail(email);
+				klant.setVoornaam(voornaam);						
+				klant.setTussenvoegsel(tussenvoegsel);
+				klant.setAchternaam(achternaam);
+				klant.setEmail(email);
 
-				System.out.println("Toe te voegen nieuwe klant: " + nieuweKlant);
+				System.out.println("Toe te voegen nieuwe klant: " + klant);
 				//logger.info("klant is: " + nieuweKlant);
-				service.persist(nieuweKlant);
-				System.out.println("Klant toegevoegd: " + nieuweKlant);
+				service.persist(klant);
+				System.out.println("Klant toegevoegd: " + klant);
 				
 				
 				break;
@@ -93,7 +103,7 @@ public class TestHibernateKlant {
 				service.update(bestaandeKlant); */
 				
 				System.out.println("*** Update - start ***");
-				Klant bestaandeKlant = new Klant();	
+				//Klant bestaandeKlant = new Klant();	
 				Scanner input2 = new Scanner(System.in);
 				System.out.print("Voer het ID in van de klant die je wil aanpassen: ");				
 				int id = input2.nextInt();
@@ -107,13 +117,13 @@ public class TestHibernateKlant {
 				System.out.print("Voer nieuwe email in: ");
 				email = input2.nextLine();
 
-				bestaandeKlant.setId(id);
-				bestaandeKlant.setVoornaam(voornaam);						
-				bestaandeKlant.setTussenvoegsel(tussenvoegsel);
-				bestaandeKlant.setAchternaam(achternaam);
-				bestaandeKlant.setEmail(email);
-				logger.info("klant is: " + bestaandeKlant);
-				service.update(bestaandeKlant); 
+				klant.setId(id);
+				klant.setVoornaam(voornaam);						
+				klant.setTussenvoegsel(tussenvoegsel);
+				klant.setAchternaam(achternaam);
+				klant.setEmail(email);
+				logger.info("klant is: " + klant);
+				service.update(klant); 
 				
 				
 				break;
@@ -130,7 +140,7 @@ public class TestHibernateKlant {
 
 			case 4:
 				System.out.println("*** Delete - start ***");
-				bestaandeKlant = new Klant();	
+					
 				System.out.print("Voer het ID in van de klant die je wil deleten: ");				
 				id2 = input.nextLong();				
 				service.delete(id2);

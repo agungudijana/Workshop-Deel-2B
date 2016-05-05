@@ -35,9 +35,7 @@ public class TestHibernateBestelling {
 		// Onderstaande blok toegevoegd op 4/5 mei 2016 AU, ivm Spring implementatie
 		AnnotationConfigApplicationContext ctx = 
 				new AnnotationConfigApplicationContext
-				(BestellingConfig.class, BestelArtikelConfig.class, 
-						BetalingConfig.class, FactuurConfig.class, 
-						KlantConfig.class, ArtikelConfig.class,
+				(SpringConfig.class,
 						CheckExistenceInDatabase.class);
 			
 		BestellingDaoService bestellingService = ctx.getBean(BestellingDaoService.class); 
