@@ -7,6 +7,7 @@ import java.util.Set;
 import javax.persistence.*;
 
 import org.hibernate.annotations.Cascade;
+import org.springframework.stereotype.Component;
 
 import java.io.Serializable;
 

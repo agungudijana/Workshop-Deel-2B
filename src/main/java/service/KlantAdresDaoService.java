@@ -2,9 +2,12 @@ package service;
 
 import java.util.List;
 
+import org.springframework.stereotype.Service;
+
 import dao.KlantAdresDao;
 import pojo.KlantAdres;
 
+@Service
 public class KlantAdresDaoService {			
 			private static KlantAdresDao klantAdresDaoImpl;
 

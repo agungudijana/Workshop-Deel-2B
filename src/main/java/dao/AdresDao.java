@@ -9,6 +9,7 @@ import org.hibernate.boot.registry.StandardServiceRegistryBuilder;
 import org.hibernate.cfg.Configuration;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.stereotype.Repository;
 
 import pojo.Account;
 import pojo.Adres;
@@ -22,7 +23,7 @@ import pojo.Factuur;
 import pojo.Klant;
 import pojo.KlantAdres;
 
-
+@Repository
 public class AdresDao implements AdresDaoInterface<Adres, Long> {
 private static final Logger logger =  LoggerFactory.getLogger(AdresDao.class);
 private Session currentSession;

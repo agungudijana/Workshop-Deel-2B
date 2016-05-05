@@ -5,6 +5,9 @@ import pojo.Adres;
 
 import java.util.List;
 
+import org.springframework.stereotype.Service;
+
+@Service
 public class AdresDaoService {		
 		private static AdresDao adresDaoImpl;
 
