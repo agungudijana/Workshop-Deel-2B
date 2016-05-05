@@ -18,7 +18,7 @@ public class BetalingConfig {
 		return new Betaalwijze();
 	}
 	
-	@Bean
+	/*  @Bean
 	public Klant klant(){
 		return new Klant();
 	}
@@ -26,7 +26,7 @@ public class BetalingConfig {
 	@Bean
 	public Factuur factuur(){
 		return new Factuur();
-	}
+	} */
 	
 	@Bean
 	public BetalingDaoService betalingDaoService(){

@@ -17,17 +17,17 @@ public class BestellingConfig {
 	/*@Bean
 	public BestelArtikel bestelartikel(){
 		return new BestelArtikel();
-	} */
+	} 
 
 	@Bean
 	public Factuur factuur(){
 		return new Factuur();
-	}
+	} 
 
 	@Bean
 	public Klant klant(){
 		return new Klant();
-	}
+	} */
 	
 	@Bean
 	public BestellingDaoService bestellingDaoService(){

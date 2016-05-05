@@ -14,7 +14,7 @@ public class BestelArtikelConfig {
 		return new BestelArtikel();
 	}
 	
-	@Bean
+	/* @Bean
 	public Artikel artikel(){
 		return new Artikel();
 	}
@@ -22,7 +22,7 @@ public class BestelArtikelConfig {
 	@Bean
 	public Bestelling bestelling(){
 		return new Bestelling();
-	}
+	} */
 
 	@Bean
 	public BestelArtikelDaoService bestelArtikelDaoService(){
