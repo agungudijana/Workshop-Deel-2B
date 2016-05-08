@@ -16,9 +16,9 @@ import org.springframework.context.annotation.AnnotationConfigApplicationContext
 import pojo.*;
 
 
-public class TestHibernateBestelling { 
+public class BestellingMenu { 
 
-	private static final Logger logger =  LoggerFactory.getLogger(TestHibernateBestelling.class);
+	private static final Logger logger =  LoggerFactory.getLogger(BestellingMenu.class);
 
 	public static void main(String[] args){
 
@@ -49,15 +49,17 @@ public class TestHibernateBestelling {
 			
 		
 		
-		System.out.println("\t-------------------------");
-		System.out.println("\t Test Bestelling Domain  ");
-		System.out.println("\t-------------------------");
+		System.out.println("\t--------------------");
+		System.out.println("\t Bestelling Domain  ");
+		System.out.println("\t--------------------");
 		System.out.println("1. persist");
 		System.out.println("2. update");
 		System.out.println("3. findById");
 		System.out.println("4. delete");
 		System.out.println("5. findAll");
 		System.out.println("6. deleteAll");
+		System.out.println("7. <Terug Naar het Hoofdmenu>");
+		System.out.println("8. <Stoppen>");
 		System.out.print("Voer optie in en druk op Enter:");
 
 
@@ -205,6 +207,8 @@ public class TestHibernateBestelling {
 
 				logger.info("*** Persist - end ***");
 
+				
+				BestellingMenu.main(null);
 				break;
 
 
@@ -289,7 +293,7 @@ public class TestHibernateBestelling {
 
 				logger.info("*** Update - end ***"); 
 
-
+				BestellingMenu.main(null);
 				break;
 
 			case 3:
@@ -298,7 +302,8 @@ public class TestHibernateBestelling {
 				System.out.print("Voer het bestelling id die u zoekt: ");
 				bestelling_id = input.nextLong();
 
-				System.out.println(bestellingService.findById(bestelling_id));				
+				System.out.println(bestellingService.findById(bestelling_id));	
+				BestellingMenu.main(null);
 				break;
 
 			case 4:
@@ -318,7 +323,7 @@ public class TestHibernateBestelling {
 
 				bestellingService.delete(bestelling_id);
 
-
+				BestellingMenu.main(null);
 				break;
 
 			case 5:
@@ -330,15 +335,28 @@ public class TestHibernateBestelling {
 				for (Bestelling b: bestellingen) {
 					System.out.println("-" + b.toString());
 				}
-
+				
+				BestellingMenu.main(null);
 				break;
 				
+				
 			case 6:
-
 					bestellingService.deleteAll();
-
+					
+				BestellingMenu.main(null);
 				break;
 
+				
+			case 7:
+				MainApp.main(null);
+				break;
+				
+			case 8:
+				System.out.println("De applicatie wordt nu afgesloten...");
+				System.exit(0);
+				break;
+				
+				
 			default:
 				System.out.println("\n! Ongeldige optie!\n");
 

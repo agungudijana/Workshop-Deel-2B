@@ -18,8 +18,8 @@ import springconfig.AdresConfig;
 
 //@Configuration
 //@ComponentScan
-public class TestHibernateAdres {
-	private static final Logger logger =  LoggerFactory.getLogger(TestHibernateAdres.class);
+public class AdresMenu {
+	private static final Logger logger =  LoggerFactory.getLogger(AdresMenu.class);
 	static AdresDaoService adresService = new AdresDaoService();
 	static KlantDaoService klantService = new KlantDaoService();
 	static KlantAdresDaoService klantAdresService = new KlantAdresDaoService();
@@ -81,9 +81,9 @@ public class TestHibernateAdres {
 	public static void toonAdresMenu(){
 		Scanner input = new Scanner(System.in);
 		
-		System.out.println("\t-------------------");
-		System.out.println("\t Test Adres Domain  ");
-		System.out.println("\t-------------------\n");
+		System.out.println("\t---------------");
+		System.out.println("\t Adres Domain  ");
+		System.out.println("\t---------------\n");
 		System.out.println("\t1.  Persist 	adres");
 		System.out.println("\t2.  Update 	adres");
 		System.out.println("\t3.  FindById 	adres");
@@ -91,6 +91,8 @@ public class TestHibernateAdres {
 		System.out.println("\t5.  FindAll 	adresses");		
 		System.out.println("\t6.  Persist 	klantAdres");
 		System.out.println("\t7.  Delete 	klantAdres");
+		System.out.println("\t8.  <Terug Naar het Hoofdmenu>");
+		System.out.println("\t9.  <Stoppen>");
 		System.out.print("\nVoer optie in en druk op Enter:");
 		
 		try{
@@ -177,6 +179,16 @@ public class TestHibernateAdres {
 				klantAdresService.delete(klantAdres_id);
 				toonAdresMenu();
 				break;	
+				
+			case 8:
+				MainApp.main(null);
+				break;
+				
+			case 9:
+				System.out.println("De applicatie wordt nu afgesloten...");
+				System.exit(0);
+				break;
+				
 						
 			default:
 				System.out.println("\n! Ongeldige optie!\n");

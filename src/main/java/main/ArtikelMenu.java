@@ -16,26 +16,30 @@ import org.springframework.context.annotation.AnnotationConfigApplicationContext
 import pojo.*;
 
 
-public class TestHibernateArtikel { 
+public class ArtikelMenu { 
 
-	private static final Logger logger =  LoggerFactory.getLogger(TestHibernateArtikel.class);
+	private static final Logger logger =  LoggerFactory.getLogger(ArtikelMenu.class);
 
 	public static void main(String[] args){
 
+		
+		
 		ArtikelDaoService artikelService = new ArtikelDaoService();
 		
 		ApplicationContext ctx = new AnnotationConfigApplicationContext(SpringConfig.class);
 		Klant klant = ctx.getBean(Klant.class);
 		Artikel artikel = ctx.getBean(Artikel.class);
 		
-		System.out.println("\t-------------------------");
-		System.out.println("\t Test Artikel Domain  ");
-		System.out.println("\t-------------------------");
+		System.out.println("\t-----------------");
+		System.out.println("\t Artikel Domain  ");
+		System.out.println("\t-----------------");
 		System.out.println("1. persist");
 		System.out.println("2. update");
 		System.out.println("3. findById");
 		System.out.println("4. delete");
 		System.out.println("5. findAll");
+		System.out.println("6. <Terug Naar het Hoofdmenu>");
+		System.out.println("7. <Stoppen>");
 		System.out.print("Voer optie in en druk op Enter:");
 
 
@@ -68,7 +72,7 @@ public class TestHibernateArtikel {
 				artikelService.persist(artikel);
 				System.out.println("Artikel toegevoegd: " + artikel);
 				
-				
+				ArtikelMenu.main(null);
 				break;
 
 			case 2:
@@ -102,7 +106,7 @@ public class TestHibernateArtikel {
 				logger.info("Artikel is: " + artikel);
 				artikelService.update(artikel); 
 				
-				
+				ArtikelMenu.main(null);
 				break;
 
 			case 3:
@@ -113,6 +117,7 @@ public class TestHibernateArtikel {
 				
 				System.out.println(artikelService.findById(artikelId));				
 				
+				ArtikelMenu.main(null);
 				break;
 
 			case 4:
@@ -123,6 +128,7 @@ public class TestHibernateArtikel {
 				artikelId = input.nextLong();				
 				artikelService.delete(artikelId);
 				
+				ArtikelMenu.main(null);
 				break;
 
 			case 5:
@@ -135,7 +141,18 @@ public class TestHibernateArtikel {
 					System.out.println("-" + a.toString());
 				}
 
+				ArtikelMenu.main(null);
 				break;
+				
+			case 6:
+				MainApp.main(null);
+				break;
+				
+			case 7:
+				System.out.println("De applicatie wordt nu afgesloten...");
+				System.exit(0);
+				break;
+				
 				
 
 			default:

@@ -16,9 +16,9 @@ import org.springframework.context.annotation.AnnotationConfigApplicationContext
 import pojo.*;
 
 
-public class TestHibernateAccount { 
+public class AccountMenu { 
 
-	private static final Logger logger =  LoggerFactory.getLogger(TestHibernateAccount.class);
+	private static final Logger logger =  LoggerFactory.getLogger(AccountMenu.class);
 
 	public static void main(String[] args){
 
@@ -29,15 +29,16 @@ public class TestHibernateAccount {
 		Klant klant = ctx.getBean(Klant.class);
 		Account account = ctx.getBean(Account.class);
 		
-		System.out.println("\t-------------------------");
-		System.out.println("\t Test Account Domain  ");
-		System.out.println("\t-------------------------");
+		System.out.println("\t-----------------");
+		System.out.println("\t Account Domain  ");
+		System.out.println("\t-----------------");
 		System.out.println("1. persist");
 		System.out.println("2. update");
 		System.out.println("3. findById");
 		System.out.println("4. delete");
 		System.out.println("5. findAll");
-		//System.out.println("6. deleteAll");
+		System.out.println("6. <Terug Naar het Hoofdmenu>");
+		System.out.println("7. <Stoppen>");
 		System.out.print("Voer optie in en druk op Enter:");
 
 
@@ -66,6 +67,7 @@ public class TestHibernateAccount {
 				accountService.persist(account);
 				System.out.println("Account toegevoegd: " + account);
 				
+				AccountMenu.main(null);
 				break;
 
 			case 2: //werkt nog niet
@@ -91,6 +93,7 @@ public class TestHibernateAccount {
 				logger.info("Account is: " + account);
 				accountService.update(account); 
 				
+				AccountMenu.main(null);
 				break;
 
 			case 3:
@@ -101,6 +104,7 @@ public class TestHibernateAccount {
 				
 				System.out.println(accountService.findById(account_id));
 				
+				AccountMenu.main(null);
 				break;
 
 			case 4:
@@ -110,6 +114,8 @@ public class TestHibernateAccount {
 				System.out.print("Voer het ID in van uw account die u wilt deleten: ");				
 				account_id = input.nextLong();				
 				accountService.delete(account_id);
+				
+				AccountMenu.main(null);
 				break;
 
 			case 5:
@@ -121,26 +127,36 @@ public class TestHibernateAccount {
 				for (Account a : accounts) {
 					System.out.println("-" + a.toString());
 				}
-
+				AccountMenu.main(null);
 				break;
 				
-			/*case 6:
-				System.out.println("*** DeleteAll - start ***");
-				accountService.deleteAll();
-				break;*/
+			case 6:
+				MainApp.main(null);
+				break;
+				
+			case 7:
+				System.out.println("De applicatie wordt nu afgesloten...");
+				System.exit(0);
+				break;
+				
 
 			default:
 				System.out.println("\n! Ongeldige optie!\n");
 
 			} 
+			
 
 		}
+		
 
 		finally {
 			// zinnige code			
 		}	
 
 
+	AccountMenu.main(null);	
+		
+		
 
 	}
 
