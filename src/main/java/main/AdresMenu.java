@@ -14,7 +14,7 @@ import pojo.*;
 import service.AdresDaoService;
 import service.KlantAdresDaoService;
 import service.KlantDaoService;
-import springconfig.AdresConfig;
+import springconfig.*;
 
 //@Configuration
 //@ComponentScan
@@ -23,7 +23,7 @@ public class AdresMenu {
 	static AdresDaoService adresService = new AdresDaoService();
 	static KlantDaoService klantService = new KlantDaoService();
 	static KlantAdresDaoService klantAdresService = new KlantAdresDaoService();
-	static ApplicationContext ctx = new AnnotationConfigApplicationContext(AdresConfig.class);
+	static ApplicationContext ctx = new AnnotationConfigApplicationContext(SpringConfig.class);
 	private static Scanner input;
 	
 	public static Adres CreateAdres(){
