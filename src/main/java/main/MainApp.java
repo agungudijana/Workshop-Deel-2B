@@ -14,8 +14,8 @@ public class MainApp {
 		System.out.println("3. Adres menu");
 		System.out.println("4. Artikel menu");
 		System.out.println("5. Bestelling menu");
-		System.out.println("6. Generic menu");
-		System.out.println("7. <Stoppen>");
+		//System.out.println("6. Generic menu");
+		System.out.println("6. <Stoppen>");
 		System.out.print("Voer optie in en druk op Enter:");
 
 
