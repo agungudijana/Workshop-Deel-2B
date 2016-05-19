@@ -17,7 +17,7 @@ import org.slf4j.LoggerFactory;
 import pojo.*;
 	
 
-public class GenericDao<T> implements GenericDaoInterface<T, Long> {
+public abstract class GenericDao<T> implements GenericDaoInterface<T, Long> {
 
 	private static final Logger logger =  LoggerFactory.getLogger(GenericDao.class);
 	

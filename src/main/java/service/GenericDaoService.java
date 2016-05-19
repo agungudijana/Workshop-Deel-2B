@@ -11,9 +11,9 @@ public class GenericDaoService<T> {
 	
 	private GenericDao<T> genericDao;
 
-	public GenericDaoService() {
+	/*public GenericDaoService() {
 		genericDao = new GenericDao<T>();
-	}
+	} */
 
 	public void saveOrUpdate(T entity) {
 		genericDao.openCurrentSessionwithTransaction();
