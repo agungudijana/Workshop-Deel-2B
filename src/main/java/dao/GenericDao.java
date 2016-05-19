@@ -119,6 +119,10 @@ public abstract class GenericDao<T> implements GenericDaoInterface<T, Long> {
 		getCurrentSession().saveOrUpdate(entity);
 	}
 	
+	public void persist(T entity) {
+		getCurrentSession().save(entity);
+	}
+	
 	public T findById(Long id) {
 		//logger.info(clazz.getName() + "findByID method starts");
 		//String naam = clazz.getName();
