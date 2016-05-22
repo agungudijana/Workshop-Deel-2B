@@ -13,12 +13,13 @@ import java.util.Objects;
 import java.util.Scanner;
 import org.apache.commons.validator.routines.EmailValidator;
 import org.hibernate.annotations.Cascade;
+import org.springframework.stereotype.Component;
 
 import java.util.Set;
 
 import javax.persistence.*;
 
-
+@Component("klant")
 @Entity
 @Table
 public class Klant implements Serializable{

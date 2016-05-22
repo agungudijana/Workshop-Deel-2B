@@ -24,9 +24,10 @@ public class KlantMenu {
 
 	public static void main(String[] args){
 
-		KlantDaoService service = new KlantDaoService();
+		
 
-		ApplicationContext ctx = new AnnotationConfigApplicationContext(SpringConfig.class);
+		ApplicationContext ctx = new AnnotationConfigApplicationContext(AppConfig.class);
+		KlantDaoService service = (KlantDaoService) ctx.getBean("klantDaoService");
 		Klant klant = ctx.getBean(Klant.class);
 
 

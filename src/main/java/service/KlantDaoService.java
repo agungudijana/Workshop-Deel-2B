@@ -3,66 +3,69 @@ package service;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import dao.KlantDao;
 import pojo.*;
 
  
-@Service
-public class KlantDaoService {
+@Service("klantDaoService")
+public class KlantDaoService{ //implements KlantDaoServiceInterface {
 	
-	 @Autowired
-	private static KlantDao klantDao;
-
-	public KlantDaoService() {
-		klantDao = new KlantDao();
+	@Autowired
+	private KlantDao klantDao;
+	
+	public void setKlantDao(KlantDao klantDao) {
+		this.klantDao = klantDao;
 	}
-
+	
+	@Transactional
 	public void persist(Klant entity) {
-		klantDao.openCurrentSessionwithTransaction();
+		
 		klantDao.persist(entity);
-		klantDao.closeCurrentSessionwithTransaction();
-	}
-
-	public void update(Klant entity) {
-		klantDao.openCurrentSessionwithTransaction();
-		klantDao.update(entity);
-		klantDao.closeCurrentSessionwithTransaction();
+		
 	}
 	
-	//public Klant findById(String id) {
+	@Transactional
+	public void update(Klant entity) {
+		
+		klantDao.update(entity);
+		
+	}
+	
+	@Transactional
 	public Klant findById(Long id) {
-		klantDao.openCurrentSession();
+		
 		Klant klant = klantDao.findById(id);
-		klantDao.closeCurrentSession();
+		
 		return klant;
 	}
 	
-	//public void delete(String id) {
+	@Transactional
 	public void delete(Long id) {
-		klantDao.openCurrentSessionwithTransaction();
+		
 		Klant klant = klantDao.findById(id);
 		System.out.println(klant + "will be deleted.");
 		klantDao.delete(klant);
-		klantDao.closeCurrentSessionwithTransaction();
+		
 	}
 	
+	@Transactional
 	public List<Klant> findAll() {
-		klantDao.openCurrentSession();
+		
 		List<Klant> klanten = klantDao.findAll();
-		klantDao.closeCurrentSession();
+		
 		return klanten;
 	}
-
+	
+	@Transactional
 	public void deleteAll() {
-		klantDao.openCurrentSessionwithTransaction();
+		
 		klantDao.deleteAll();
-		klantDao.closeCurrentSessionwithTransaction();
+		
 	}
 
-	public KlantDao klantDao() {
-		return klantDao;
-	}
 }
 
