@@ -27,9 +27,9 @@ public class GenericDaoService<T> {
 		genericDao.closeCurrentSessionwithTransaction();
 	}
 
-	public T findById(T entity, Long id) {
+	public T findById(Long id) {
 		genericDao.openCurrentSession();
-		entity = genericDao.findById(id);
+		T entity = genericDao.findById(id);
 		genericDao.closeCurrentSession();
 		return entity;
 	}

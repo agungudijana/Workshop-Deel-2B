@@ -99,7 +99,7 @@ public class GenericKlantMenu {
 				klant.setAchternaam(achternaam);
 				klant.setEmail(email);
 				logger.info("klant is: " + klant);
-				service.update(klant); 
+				service.saveOrUpdate(klant); 
 
 				GenericKlantMenu.main(null);
 				break;
