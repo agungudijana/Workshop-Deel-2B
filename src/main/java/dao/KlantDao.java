@@ -21,7 +21,7 @@ import pojo.*;
 
 @Repository("klantDao")
 //@Transactional
-public class KlantDao extends GenericDao<Klant, Long> implements KlantDaoInterface<Klant, Long> {
+public class KlantDao extends GenericDao<Klant, Long> {// implements KlantDaoInterface<Klant, Long> {
 
 	private static final Logger logger =  LoggerFactory.getLogger(KlantDao.class);
 	
@@ -32,30 +32,30 @@ public class KlantDao extends GenericDao<Klant, Long> implements KlantDaoInterfa
 		this.sessionFactory = sf;
 	}
 		
-		@Override
+		//@Override
 		public void persist(Klant entity) {
 			sessionFactory.getCurrentSession().persist(entity);
 		}
 
-		@Override
+		//@Override
 	    public void update(Klant entity) {
 	    	sessionFactory.getCurrentSession().update(entity);
 		}
 	
-		@Override
+		//@Override
 		public Klant findById(Long id) {
 			
 			return (Klant) sessionFactory.getCurrentSession().get(Klant.class, id);
 		
 		}
 		
-		@Override
+		//@Override
 		public void delete(Klant entity) {
 			sessionFactory.getCurrentSession().delete(entity);
 		}
 
 		@SuppressWarnings("unchecked")
-		@Override
+		//@Override
 		public List<Klant> findAll() {
 			
 			List<Klant> klantList = sessionFactory.getCurrentSession().createQuery("from Klant").list();
@@ -66,7 +66,7 @@ public class KlantDao extends GenericDao<Klant, Long> implements KlantDaoInterfa
 			
 		}
 		
-		@Override
+		//@Override
 		public void deleteAll() {
 			List<Klant> entityList = findAll();
 			

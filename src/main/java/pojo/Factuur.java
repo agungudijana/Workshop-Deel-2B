@@ -10,7 +10,9 @@ import java.util.Set;
 import javax.persistence.*;
 
 import org.hibernate.annotations.Cascade;
+import org.springframework.stereotype.Component;
 
+@Component("factuur")
 @Entity
 @Table
 public class Factuur implements Serializable {

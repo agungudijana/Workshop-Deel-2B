@@ -2,21 +2,28 @@ package service;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.context.ApplicationContext;
+import org.springframework.context.annotation.AnnotationConfigApplicationContext;
+
+import springconfig.AppConfig;
 
 
 
 public class CheckExistenceInDatabase {
 	private static final Logger logger =  LoggerFactory.getLogger(CheckExistenceInDatabase.class);
-
+	
+	ApplicationContext ctx = new AnnotationConfigApplicationContext(AppConfig.class);
+	GenericDaoService service = (GenericDaoService) ctx.getBean("genericDaoService");
+	
 	public boolean checkKlant_id(long klant_id) {
 
 		boolean result = false;
-		KlantDaoService klantService = new KlantDaoService();
+		//GenericDaoService klantService = new KlantDaoService();
 
 		logger.info("Check klant ID methode begint");
 		logger.info("Klant ID is : "+ klant_id);
 
-		if (klantService.findById(klant_id) != null) {
+		if (service.findKlantById(klant_id) != null) {
 			result = true;
 		} 
 		else {
@@ -51,12 +58,12 @@ public class CheckExistenceInDatabase {
 	public boolean checkAdres_id(long adres_id) {
 
 		boolean result = false;
-		AdresDaoService adresService = new AdresDaoService();
+		//AdresDaoService adresService = new AdresDaoService();
 
 		logger.info("Check adres ID methode begint");
 		logger.info("Adres ID is : "+ adres_id);				
 
-		if (adresService.findById(adres_id) != null) {
+		if (service.findAdresById(adres_id) != null) {
 			result = true;
 		} 
 		else {
@@ -71,12 +78,12 @@ public class CheckExistenceInDatabase {
 	public boolean checkAccount_id(long account_id) {
 
 		boolean result = false;
-		AccountDaoService accountService = new AccountDaoService();
+		//AccountDaoService accountService = new AccountDaoService();
 
 		logger.info("Check account ID methode begint");
 		logger.info("Account ID is : "+ account_id);				
 
-		if (accountService.findById(account_id) != null) {
+		if (service.findAccountById(account_id) != null) {vv
 			result = true;
 		} 
 		else {

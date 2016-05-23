@@ -15,7 +15,7 @@ import org.springframework.stereotype.Repository;
 import pojo.*;
 	
 @Repository("accountDao")
-public class AccountDao extends GenericDao<Account, Long> implements AccountDaoInterface<Account, Long> {
+public class AccountDao extends GenericDao<Account, Long> { //implements AccountDaoInterface<Account, Long> {
 
 	private static final Logger logger =  LoggerFactory.getLogger(AccountDao.class);
 	
@@ -26,30 +26,30 @@ public class AccountDao extends GenericDao<Account, Long> implements AccountDaoI
 		this.sessionFactory = sf;
 	}
 		
-		@Override
+		//@Override
 		public void persist(Account entity) {
 			sessionFactory.getCurrentSession().persist(entity);
 		}
 
-		@Override
+		//@Override
 	    public void update(Account entity) {
 	    	sessionFactory.getCurrentSession().update(entity);
 		}
 	
-		@Override
+		//@Override
 		public Account findById(Long id) {
 			
 			return (Account) sessionFactory.getCurrentSession().get(Account.class, id);
 		
 		}
 		
-		@Override
+		//@Override
 		public void delete(Account entity) {
 			sessionFactory.getCurrentSession().delete(entity);
 		}
 
 		@SuppressWarnings("unchecked")
-		@Override
+		//@Override
 		public List<Account> findAll() {
 			
 			List<Account> accountList = sessionFactory.getCurrentSession().createQuery("from Account").list();
@@ -60,7 +60,7 @@ public class AccountDao extends GenericDao<Account, Long> implements AccountDaoI
 			
 		}
 		
-		@Override
+		//@Override
 		public void deleteAll() {
 			List<Account> entityList = findAll();
 			

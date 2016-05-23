@@ -145,7 +145,7 @@ public class GenericKlantMenu {
 
 
 			case 7:
-				MainApp.main(null);
+				GenericMainApp.main(null);
 				break;
 
 			case 8:

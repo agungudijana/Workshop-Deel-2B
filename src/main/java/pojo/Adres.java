@@ -11,6 +11,7 @@ import org.springframework.stereotype.Component;
 
 import java.io.Serializable;
 
+@Component("adres")
 @Entity
 @Table
 public class Adres implements Serializable {

@@ -131,7 +131,7 @@ public class GenericAccountMenu {
 				break;
 				
 			case 6:
-				MainApp.main(null);
+				GenericMainApp.main(null);
 				break;
 				
 			case 7:

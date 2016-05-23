@@ -5,9 +5,11 @@ import java.util.Objects;
 import javax.persistence.*;
 
 import org.hibernate.annotations.Cascade;
+import org.springframework.stereotype.Component;
 
 import java.io.Serializable;
 
+@Component("bestelArtikel")
 @Entity
 @Table
 public class BestelArtikel implements Serializable {

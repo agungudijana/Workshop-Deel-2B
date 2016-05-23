@@ -53,7 +53,7 @@ public class GenericDaoService<T, Id extends Serializable> {
 	
 	@Transactional
 	public void deleteKlant(Long id) {
-		T entity = (T)klantDao.findById(id);
+		Klant entity = (Klant)klantDao.findById(id);
 		System.out.println(entity.getClass() + "will be deleted.");
 		klantDao.delete(entity);
 	}
@@ -104,6 +104,79 @@ public class GenericDaoService<T, Id extends Serializable> {
 	@Transactional
 	public void deleteAllAccounten() {
 		accountDao.deleteAll();
+	}
+	
+	//===== Adres gedeelte =====
+	
+	@Transactional
+	public void persist(Adres entity) {
+		adresDao.persist(entity);
+	}
+
+	@Transactional
+	public void update(Adres entity) {
+		adresDao.createOrUpdate(entity);
+	}
+	
+	@Transactional
+	public Adres findAdresById(Long id) {
+		Adres adres = (Adres) adresDao.findById(id);
+		return adres;
+	}
+	
+	@Transactional
+	public void deleteAdres(Long id) {
+		Adres adres = (Adres) adresDao.findById(id);
+		System.out.println(adres + "will be deleted.");
+		adresDao.delete(adres);
+	}
+	
+	@Transactional
+	public List<Adres> findAllAdressen() {
+		List<Adres> klanten = adresDao.findAll();
+		return klanten;
+	}
+
+	@Transactional
+	public void deleteAllAdressen() {
+		adresDao.deleteAll();
+	}
+	
+	
+	//===== KlantAdres =====
+	
+	@Transactional
+	public void persist(KlantAdres entity) {
+		klantAdresDao.persist(entity);
+	}
+
+	@Transactional
+	public void update(KlantAdres entity) {
+		klantAdresDao.createOrUpdate(entity);
+	}
+	
+	@Transactional
+	public KlantAdres findKlantAdresById(Long id) {
+		KlantAdres klantAdres = (KlantAdres) klantAdresDao.findById(id);
+		return klantAdres;
+	}
+	
+	@Transactional
+	public void deleteKlantAdres(Long id) {
+		KlantAdres klantAdres = (KlantAdres) klantAdresDao.findById(id);
+		System.out.println(klantAdres + "will be deleted.");
+		adresDao.delete(klantAdres);
+	}
+	
+	@Transactional
+	public List<Adres> findAllKlantAdressen() {
+		List<Adres> klanten = klantAdresDao.findAll();
+		return klanten;
+	}
+
+	@Transactional
+	public void deleteAllKlantAdressen() {
+		klantAdresDao.deleteAll();
 	}
 }
 

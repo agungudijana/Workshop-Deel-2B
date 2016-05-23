@@ -11,6 +11,7 @@ import org.springframework.stereotype.Component;
 
 import pojo.*;
 
+@Component("klantAdres")
 @Entity
 @Table
 public class KlantAdres implements Serializable {
