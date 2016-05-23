@@ -24,9 +24,8 @@ public class GenericArtikelMenu {
 
 		
 		
-		ArtikelDaoService artikelService = new ArtikelDaoService();
-		
-		ApplicationContext ctx = new AnnotationConfigApplicationContext(SpringConfig.class);
+		ApplicationContext ctx = new AnnotationConfigApplicationContext(AppConfig.class);
+		GenericBestellingDaoService artikelService = (GenericBestellingDaoService) ctx.getBean("genericBestellingDaoService");
 		Klant klant = ctx.getBean(Klant.class);
 		Artikel artikel = ctx.getBean(Artikel.class);
 		
@@ -83,7 +82,7 @@ public class GenericArtikelMenu {
 				long artikelId = input.nextLong();
 				input.nextLine();
 				
-				artikel = artikelService.findById(artikelId);
+				artikel = artikelService.findArtikelById(artikelId);
 				
 				System.out.println("Voer de naam van het artikel in: ");
 				String nieuwArtikelNaam = input.nextLine();
@@ -104,7 +103,7 @@ public class GenericArtikelMenu {
 				//System.out.println(artikelService.findById(artikelId));			
 
 				logger.info("Artikel is: " + artikel);
-				artikelService.update(artikel); 
+				artikelService.saveOrUpdate(artikel); 
 				
 				GenericArtikelMenu.main(null);
 				break;
@@ -115,7 +114,7 @@ public class GenericArtikelMenu {
 				System.out.print("Voer het ID in van het artikel die je wil zoeken: ");
 				artikelId = input.nextLong();
 				
-				System.out.println(artikelService.findById(artikelId));				
+				System.out.println(artikelService.findArtikelById(artikelId));				
 				
 				GenericArtikelMenu.main(null);
 				break;
@@ -126,14 +125,14 @@ public class GenericArtikelMenu {
 				
 				System.out.print("Voer het ID in van het artikel die je wil deleten: ");				
 				artikelId = input.nextLong();				
-				artikelService.delete(artikelId);
+				artikelService.deleteArtikel(artikelId);
 				
 				GenericArtikelMenu.main(null);
 				break;
 
 			case 5:
 				logger.info("findAll artikellen aangeroepen");
-				List<Artikel> artikellen = artikelService.findAll();
+				List<Artikel> artikellen = artikelService.findAllArtikelen();
 
 				System.out.println("De volgende artikellen staan in het assortiment:");
 
@@ -145,7 +144,7 @@ public class GenericArtikelMenu {
 				break;
 				
 			case 6:
-				MainApp.main(null);
+				GenericMainApp.main(null);
 				break;
 				
 			case 7:

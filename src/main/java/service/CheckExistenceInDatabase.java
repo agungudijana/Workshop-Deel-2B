@@ -14,6 +14,7 @@ public class CheckExistenceInDatabase {
 	
 	ApplicationContext ctx = new AnnotationConfigApplicationContext(AppConfig.class);
 	GenericDaoService service = (GenericDaoService) ctx.getBean("genericDaoService");
+	GenericBestellingDaoService bestelService = (GenericBestellingDaoService) ctx.getBean("genericBestellingDaoService");
 	
 	public boolean checkKlant_id(long klant_id) {
 
@@ -38,12 +39,12 @@ public class CheckExistenceInDatabase {
 	public boolean checkBestelling_id(long bestelling_id) {
 
 		boolean result = false;
-		BestellingDaoService bestelService = new BestellingDaoService();
+		//BestellingDaoService bestelService = new BestellingDaoService();
 
 		logger.info("Check bestelling ID methode begint");
 		logger.info("Bestelling ID is : "+ bestelling_id);				
 
-		if (bestelService.findById(bestelling_id) != null) {
+		if (bestelService.findBestellingById(bestelling_id) != null) {
 			result = true;
 		} 
 		else {
@@ -83,7 +84,7 @@ public class CheckExistenceInDatabase {
 		logger.info("Check account ID methode begint");
 		logger.info("Account ID is : "+ account_id);				
 
-		if (service.findAccountById(account_id) != null) {vv
+		if (service.findAccountById(account_id) != null) {
 			result = true;
 		} 
 		else {
@@ -98,12 +99,12 @@ public class CheckExistenceInDatabase {
 	public boolean checkArtikel_id(long artikel_id) {
 
 		boolean result = false;
-		ArtikelDaoService artikelService = new ArtikelDaoService();
+		//ArtikelDaoService artikelService = new ArtikelDaoService();
 
 		logger.info("Check artikel ID methode begint");
 		logger.info("Artikel ID is : "+ artikel_id);				
 
-		if (artikelService.findById(artikel_id) != null) {
+		if (bestelService.findArtikelById(artikel_id) != null) {
 			result = true;
 		} 
 		else {
