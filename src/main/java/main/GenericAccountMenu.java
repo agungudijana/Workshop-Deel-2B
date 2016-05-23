@@ -22,10 +22,10 @@ public class GenericAccountMenu {
 
 	public static void main(String[] args){
 
-		KlantDaoService klantService = new KlantDaoService();
-		AccountDaoService accountService = new AccountDaoService();
 		
-		ApplicationContext ctx = new AnnotationConfigApplicationContext(SpringConfig.class);
+		
+		ApplicationContext ctx = new AnnotationConfigApplicationContext(AppConfig.class);
+		GenericDaoService service = (GenericDaoService) ctx.getBean("genericDaoService");
 		Klant klant = ctx.getBean(Klant.class);
 		Account account = ctx.getBean(Account.class);
 		
@@ -55,7 +55,7 @@ public class GenericAccountMenu {
 				long klant_id = input.nextLong();	
 
 				account.setDateCreated();
-				account.setKlant(klantService.findById(klant_id));
+				account.setKlant(service.findKlantById(klant_id));
 				
 				System.out.print("Voer de naam van uw nieuwe account in: ");
 				String nieuweAccountNaam = input.next();	
@@ -64,7 +64,7 @@ public class GenericAccountMenu {
 				
 
 				System.out.println("Toe te voegen nieuwe account: " + account);
-				accountService.persist(account);
+				service.persist(account);
 				System.out.println("Account toegevoegd: " + account);
 				
 				GenericAccountMenu.main(null);
@@ -86,12 +86,12 @@ public class GenericAccountMenu {
 				
 				
 				account.setId(account_id);
-				account.setKlant(klantService.findById(klant_id));
+				account.setKlant(service.findKlantById(klant_id));
 				account.setAccountNaam(accountNaam);
 				account.setDateCreated();
 
 				logger.info("Account is: " + account);
-				accountService.update(account); 
+				service.saveOrUpdate(account); 
 				
 				GenericAccountMenu.main(null);
 				break;
@@ -102,7 +102,7 @@ public class GenericAccountMenu {
 				System.out.print("Voer het ID in van uw Account: ");
 				account_id = input.nextLong();
 				
-				System.out.println(accountService.findById(account_id));
+				System.out.println(service.findAccountById(account_id));
 				
 				GenericAccountMenu.main(null);
 				break;
@@ -113,14 +113,14 @@ public class GenericAccountMenu {
 				
 				System.out.print("Voer het ID in van uw account die u wilt deleten: ");				
 				account_id = input.nextLong();				
-				accountService.delete(account_id);
+				service.deleteAccount(account_id);
 				
 				GenericAccountMenu.main(null);
 				break;
 
 			case 5:
 				logger.info("findAll klanten aangeroepen");
-				List<Account> accounts = accountService.findAll();
+				List<Account> accounts = service.findAllAccounten();
 
 				System.out.println("De volgende klanten staan in de Klant tabel :");
 

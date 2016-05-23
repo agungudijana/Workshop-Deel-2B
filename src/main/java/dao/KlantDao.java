@@ -21,7 +21,7 @@ import pojo.*;
 
 @Repository("klantDao")
 //@Transactional
-public class KlantDao implements KlantDaoInterface<Klant, Long> {
+public class KlantDao extends GenericDao<Klant, Long> implements KlantDaoInterface<Klant, Long> {
 
 	private static final Logger logger =  LoggerFactory.getLogger(KlantDao.class);
 	
@@ -60,7 +60,7 @@ public class KlantDao implements KlantDaoInterface<Klant, Long> {
 			
 			List<Klant> klantList = sessionFactory.getCurrentSession().createQuery("from Klant").list();
 			for(Klant k : klantList){
-				logger.info("Person List::"+k);
+				logger.info("Klant List::"+k);
 			}
 			return klantList;
 			

@@ -24,9 +24,8 @@ public class ArtikelMenu {
 
 		
 		
-		ArtikelDaoService artikelService = new ArtikelDaoService();
-		
-		ApplicationContext ctx = new AnnotationConfigApplicationContext(SpringConfig.class);
+		ApplicationContext ctx = new AnnotationConfigApplicationContext(AppConfig.class);
+		ArtikelDaoService artikelService = (ArtikelDaoService) ctx.getBean("artikelDaoService");
 		Klant klant = ctx.getBean(Klant.class);
 		Artikel artikel = ctx.getBean(Artikel.class);
 		

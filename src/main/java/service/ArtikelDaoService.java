@@ -4,64 +4,53 @@ import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import dao.*;
 import pojo.*;
 
  
-@Service
+@Service("artikelDaoService")
 public class ArtikelDaoService {
 	
 	@Autowired
-	private static ArtikelDao artikelDao;
+	private ArtikelDao artikelDao;
 
-	public ArtikelDaoService() {
-		artikelDao = new ArtikelDao();
+	public void setArtikelDao(ArtikelDao artikelDao) {
+		this.artikelDao = artikelDao;
 	}
-
+	
+	@Transactional
 	public void persist(Artikel entity) {
-		artikelDao.openCurrentSessionwithTransaction();
 		artikelDao.persist(entity);
-		artikelDao.closeCurrentSessionwithTransaction();
 	}
-
+	
+	@Transactional
 	public void update(Artikel entity) {
-		artikelDao.openCurrentSessionwithTransaction();
 		artikelDao.update(entity);
-		artikelDao.closeCurrentSessionwithTransaction();
 	}
 	
 	public Artikel findById(Long id) {
-		artikelDao.openCurrentSession();
 		Artikel artikel = artikelDao.findById(id);
-		artikelDao.closeCurrentSession();
 		return artikel;
 	}
 	
-	//public void delete(String id) {
+	@Transactional
 	public void delete(Long id) {
-		artikelDao.openCurrentSessionwithTransaction();
 		Artikel artikel = artikelDao.findById(id);
 		System.out.println(artikel + "will be deleted.");
 		artikelDao.delete(artikel);
-		artikelDao.closeCurrentSessionwithTransaction();
 	}
 	
+	@Transactional
 	public List<Artikel> findAll() {
-		artikelDao.openCurrentSession();
 		List<Artikel> artikellen = artikelDao.findAll();
-		artikelDao.closeCurrentSession();
 		return artikellen;
 	}
-
+	
+	@Transactional
 	public void deleteAll() {
-		artikelDao.openCurrentSessionwithTransaction();
 		artikelDao.deleteAll();
-		artikelDao.closeCurrentSessionwithTransaction();
-	}
-
-	public ArtikelDao artikelDao() {
-		return artikelDao;
 	}
 }
 

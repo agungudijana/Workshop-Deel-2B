@@ -6,6 +6,9 @@ import java.util.Objects;
 
 import javax.persistence.*;
 
+import org.springframework.stereotype.Component;
+
+@Component("account")
 @Entity
 @Table
 public class Account implements Serializable {

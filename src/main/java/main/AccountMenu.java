@@ -22,10 +22,11 @@ public class AccountMenu {
 
 	public static void main(String[] args){
 
-		KlantDaoService klantService = new KlantDaoService();
-		AccountDaoService accountService = new AccountDaoService();
 		
-		ApplicationContext ctx = new AnnotationConfigApplicationContext(SpringConfig.class);
+		
+		ApplicationContext ctx = new AnnotationConfigApplicationContext(AppConfig.class);
+		KlantDaoService klantService = (KlantDaoService) ctx.getBean("klantDaoService");
+		AccountDaoService accountService = (AccountDaoService) ctx.getBean("accountDaoService");
 		Klant klant = ctx.getBean(Klant.class);
 		Account account = ctx.getBean(Account.class);
 		

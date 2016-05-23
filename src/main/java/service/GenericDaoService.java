@@ -1,63 +1,109 @@
 package service;
 
+import java.io.Serializable;
 import java.util.List;
 
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Qualifier;
+import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
+
 import dao.GenericDao;
+import dao.KlantDao;
 import pojo.*;
 
- 
-
-public class GenericDaoService<T> {
+@SuppressWarnings("unchecked")  
+@Service("genericDaoService")
+public class GenericDaoService<T, Id extends Serializable> {
 	
-	private GenericDao<T> genericDao;
-
-	/*public GenericDaoService() {
-		genericDao = new GenericDao<T>();
-	} */
+	@Autowired
+	@Qualifier("klantDao")
+	private GenericDao klantDao;
 	
-	public void persist(T entity) {
-		genericDao.openCurrentSessionwithTransaction();
-		genericDao.persist(entity);
-		genericDao.closeCurrentSessionwithTransaction();
+	@Autowired
+	@Qualifier("accountDao")
+	private GenericDao accountDao;
+	
+	@Autowired
+	@Qualifier("adresDao")
+	private GenericDao adresDao;
+	
+	@Autowired
+	@Qualifier("klantAdresDao")
+	private GenericDao klantAdresDao;
+	
+	
+	//===== Klant gedeelte =====
+	
+	@Transactional
+	public void persist(Klant entity) {
+		klantDao.persist(entity);
 	}
-
-	public void saveOrUpdate(T entity) {
-		genericDao.openCurrentSessionwithTransaction();
-		genericDao.createOrUpdate(entity);
-		genericDao.closeCurrentSessionwithTransaction();
+	
+	@Transactional
+	public void saveOrUpdate(Klant entity) {
+		klantDao.createOrUpdate(entity);
 	}
-
-	public T findById(Long id) {
-		genericDao.openCurrentSession();
-		T entity = genericDao.findById(id);
-		genericDao.closeCurrentSession();
+	
+	@Transactional
+	public Klant findKlantById(long id) {
+		Klant entity = (Klant) klantDao.findById(id);
 		return entity;
 	}
 	
-	//public void delete(String id) {
-	public void delete(Long id) {
-		genericDao.openCurrentSessionwithTransaction();
-		T entity = (T)genericDao.findById(id);
+	@Transactional
+	public void deleteKlant(Long id) {
+		T entity = (T)klantDao.findById(id);
 		System.out.println(entity.getClass() + "will be deleted.");
-		genericDao.delete(entity);
-		genericDao.closeCurrentSessionwithTransaction();
+		klantDao.delete(entity);
 	}
 	
-	public List<T> findAll() {
-		genericDao.openCurrentSession();
-		List<T> entities = genericDao.findAll();
-		genericDao.closeCurrentSession();
+	@Transactional
+	public List<Klant> findAllKlanten() {
+		List<Klant> entities = klantDao.findAll();
 		return entities;
 	}
-
-	public void deleteAll() {
-		genericDao.openCurrentSessionwithTransaction();
-		genericDao.deleteAll();
-		genericDao.closeCurrentSessionwithTransaction();
+	
+	@Transactional
+	public void deleteAllKlanten() {
+		klantDao.deleteAll();
 	}
-
-	public GenericDao<T> genericDao() {
-		return genericDao;
+	
+	
+	//===== Account gedeelte =====
+	
+	@Transactional
+	public void persist(Account entity) {
+		accountDao.persist(entity);
+	}
+	
+	@Transactional
+	public void saveOrUpdate(Account entity) {
+		klantDao.createOrUpdate(entity);
+	}
+	
+	@Transactional
+	public Account findAccountById(long id) {
+		Account entity = (Account) accountDao.findById(id);
+		return entity;
+	}
+	
+	@Transactional
+	public void deleteAccount(Long id) {
+		Account entity = (Account)accountDao.findById(id);
+		System.out.println(entity.getClass() + "will be deleted.");
+		accountDao.delete(entity);
+	}
+	
+	@Transactional
+	public List<Account> findAllAccounten() {
+		List<Account> entities = accountDao.findAll();
+		return entities;
+	}
+	
+	@Transactional
+	public void deleteAllAccounten() {
+		accountDao.deleteAll();
 	}
 }
 

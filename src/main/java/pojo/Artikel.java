@@ -4,9 +4,12 @@ import java.util.Objects;
 import java.util.Random;
 
 import javax.persistence.*;
+
+import org.springframework.stereotype.Component;
+
 import java.io.Serializable;
 
-
+@Component("artikel")
 @Entity
 @Table
 public class Artikel implements Serializable {

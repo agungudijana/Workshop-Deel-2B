@@ -4,64 +4,54 @@ import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import dao.*;
 import pojo.*;
 
  
-@Service
+@Service("accountDaoService")
 public class AccountDaoService {
 	
 	@Autowired
-	private static AccountDao accountDao;
-
-	public AccountDaoService() {
-		accountDao = new AccountDao();
+	private AccountDao accountDao;
+	
+	
+	public void setAccountDao(AccountDao accountDao) {
+		this.accountDao = accountDao;
 	}
-
+	
+	@Transactional
 	public void persist(Account entity) {
-		accountDao.openCurrentSessionwithTransaction();
 		accountDao.persist(entity);
-		accountDao.closeCurrentSessionwithTransaction();
 	}
 
 	public void update(Account entity) {
-		accountDao.openCurrentSessionwithTransaction();
 		accountDao.update(entity);
-		accountDao.closeCurrentSessionwithTransaction();
-	}
+		}
 	
+	@Transactional
 	public Account findById(Long id) {
-		accountDao.openCurrentSession();
 		Account account = accountDao.findById(id);
-		accountDao.closeCurrentSession();
 		return account;
 	}
 	
 	//public void delete(String id) {
 	public void delete(Long id) {
-		accountDao.openCurrentSessionwithTransaction();
 		Account account = accountDao.findById(id);
 		System.out.println(account + "will be deleted.");
 		accountDao.delete(account);
-		accountDao.closeCurrentSessionwithTransaction();
 	}
-	
+
+	@Transactional
 	public List<Account> findAll() {
-		accountDao.openCurrentSession();
 		List<Account> accounten = accountDao.findAll();
-		accountDao.closeCurrentSession();
 		return accounten;
 	}
 
+	@Transactional
 	public void deleteAll() {
-		accountDao.openCurrentSessionwithTransaction();
 		accountDao.deleteAll();
-		accountDao.closeCurrentSessionwithTransaction();
-	}
-
-	public AccountDao accountDao() {
-		return accountDao;
 	}
 }
 

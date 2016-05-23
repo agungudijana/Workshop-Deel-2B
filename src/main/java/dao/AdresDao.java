@@ -25,6 +25,7 @@ import pojo.KlantAdres;
 
 @Repository
 public class AdresDao implements AdresDaoInterface<Adres, Long> {
+	
 private static final Logger logger =  LoggerFactory.getLogger(AdresDao.class);
 private Session currentSession;
 private Transaction currentTransaction;

@@ -24,10 +24,9 @@ public class GenericKlantMenu {
 
 	public static void main(String[] args){
 
-		GenericDaoService service = new GenericDaoService();
-
-
-		ApplicationContext ctx = new AnnotationConfigApplicationContext(SpringConfig.class);
+		ApplicationContext ctx = new AnnotationConfigApplicationContext(AppConfig.class);
+		GenericDaoService service = (GenericDaoService) ctx.getBean("genericDaoService");
+		
 		Klant klant = ctx.getBean(Klant.class);
 
 
@@ -111,7 +110,7 @@ public class GenericKlantMenu {
 				System.out.print("Voer het ID in van de klant die je wil zoeken: ");
 				Long id2 = input3.nextLong();
 				//bestaandeKlant.setId(id2);
-				System.out.println(service.findById(id2));		
+				System.out.println(service.findKlantById(id2));		
 
 				GenericKlantMenu.main(null);
 				break;
@@ -121,14 +120,14 @@ public class GenericKlantMenu {
 
 				System.out.print("Voer het ID in van de klant die je wil deleten: ");				
 				id2 = input.nextLong();				
-				service.delete(id2);
+				service.deleteKlant(id2);
 
 				GenericKlantMenu.main(null);
 				break;
 
 			case 5:
 				logger.info("findAll klanten aangeroepen");
-				List<Klant> klanten = service.findAll();
+				List<Klant> klanten = service.findAllKlanten();
 
 				System.out.println("De volgende klanten staan in de Klant tabel :");
 
@@ -140,7 +139,7 @@ public class GenericKlantMenu {
 				break;
 
 			case 6:
-				service.deleteAll();
+				service.deleteAllKlanten();
 				GenericKlantMenu.main(null);
 				break;
 
