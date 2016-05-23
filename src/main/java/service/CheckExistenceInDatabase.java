@@ -14,7 +14,6 @@ public class CheckExistenceInDatabase {
 	
 	ApplicationContext ctx = new AnnotationConfigApplicationContext(AppConfig.class);
 	GenericDaoService service = (GenericDaoService) ctx.getBean("genericDaoService");
-	GenericBestellingDaoService bestelService = (GenericBestellingDaoService) ctx.getBean("genericBestellingDaoService");
 	
 	public boolean checkKlant_id(long klant_id) {
 
@@ -44,7 +43,7 @@ public class CheckExistenceInDatabase {
 		logger.info("Check bestelling ID methode begint");
 		logger.info("Bestelling ID is : "+ bestelling_id);				
 
-		if (bestelService.findBestellingById(bestelling_id) != null) {
+		if (service.findBestellingById(bestelling_id) != null) {
 			result = true;
 		} 
 		else {
@@ -104,7 +103,7 @@ public class CheckExistenceInDatabase {
 		logger.info("Check artikel ID methode begint");
 		logger.info("Artikel ID is : "+ artikel_id);				
 
-		if (bestelService.findArtikelById(artikel_id) != null) {
+		if (service.findArtikelById(artikel_id) != null) {
 			result = true;
 		} 
 		else {

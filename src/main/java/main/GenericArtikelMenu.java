@@ -25,7 +25,7 @@ public class GenericArtikelMenu {
 		
 		
 		ApplicationContext ctx = new AnnotationConfigApplicationContext(AppConfig.class);
-		GenericBestellingDaoService artikelService = (GenericBestellingDaoService) ctx.getBean("genericBestellingDaoService");
+		GenericDaoService artikelService = (GenericDaoService) ctx.getBean("genericDaoService");
 		Klant klant = ctx.getBean(Klant.class);
 		Artikel artikel = ctx.getBean(Artikel.class);
 		
@@ -100,7 +100,7 @@ public class GenericArtikelMenu {
 				artikel.setArtikel_prijs(nieuwArtikelPrijs);
 				
 				System.out.println("het artikelnummer blijft hetzelfde");
-				//System.out.println(artikelService.findById(artikelId));			
+				//System.out.println(artikelService.fId(artikelId));			
 
 				logger.info("Artikel is: " + artikel);
 				artikelService.saveOrUpdate(artikel); 

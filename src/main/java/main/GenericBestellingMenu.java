@@ -22,33 +22,15 @@ public class GenericBestellingMenu {
 
 	public static void main(String[] args){
 
-		/* uitgecomment ivm implementeren van Spring
-		// BestellingDaoService bestellingService = new BestellingDaoService();
-		// BestelArtikelDaoService bestellingHasArtikelService = new BestelArtikelDaoService();
-		// KlantDaoService klantService = new KlantDaoService();
-		// ArtikelDaoService artikelService = new ArtikelDaoService();
-		// FactuurDaoService factuurService = new FactuurDaoService();
-		// BetalingDaoService betalingService = new BetalingDaoService();
-		// CheckExistenceInDatabase checkExistenceInDatabase = new CheckExistenceInDatabase();
-		 */ 
-		 
-		// Onderstaande blok toegevoegd op 4/5 mei 2016 AU, ivm Spring implementatie
 		AnnotationConfigApplicationContext ctx = 
 				new AnnotationConfigApplicationContext
-				(SpringConfig.class,
+				(AppConfig.class,
 						CheckExistenceInDatabase.class);
 			
-		BestellingDaoService bestellingService = ctx.getBean(BestellingDaoService.class); 
-		BestelArtikelDaoService bestellingHasArtikelService = ctx.getBean(BestelArtikelDaoService.class); 
-		KlantDaoService klantService = ctx.getBean(KlantDaoService.class);
-		ArtikelDaoService artikelService = ctx.getBean(ArtikelDaoService.class);
-		FactuurDaoService factuurService = ctx.getBean(FactuurDaoService.class);
-		BetalingDaoService betalingService = ctx.getBean(BetalingDaoService.class);
+		GenericDaoService service = ctx.getBean(GenericDaoService.class); 
 		CheckExistenceInDatabase checkExistenceInDatabase = ctx.getBean(CheckExistenceInDatabase.class);
-		// einde nieuw toegevoegd blok
+					
 			
-		
-		
 		System.out.println("\t---------------------------------");
 		System.out.println("\t Bestelling Domain (GENERIC DAO) ");
 		System.out.println("\t---------------------------------");
@@ -90,8 +72,9 @@ public class GenericBestellingMenu {
 					klant_id = input.nextLong();
 					System.out.println();
 				}    
-				Klant klant = klantService.findById(klant_id);
-				
+				Klant klant = service.findKlantById(klant_id);
+
+		
 				nieuweBestelling.setBestelNummer();				
 				nieuweBestelling.setBestelDatum();
 				nieuweBestelling.setKlant(klant);
@@ -99,7 +82,7 @@ public class GenericBestellingMenu {
 				logger.info("Klant :" + nieuweBestelling.getKlant());
 				logger.info("bestelling_id: " + nieuweBestelling.getId());
 
-				bestellingService.persist(nieuweBestelling);
+				service.persist(nieuweBestelling);
 
 				long artikel_id = 0;
 
@@ -116,7 +99,7 @@ public class GenericBestellingMenu {
 						System.out.println();
 					}    
 					
-					nieuweBestellingHasArtikel.setArtikel(artikelService.findById(artikel_id));
+					nieuweBestellingHasArtikel.setArtikel(service.findArtikelById(artikel_id));
 
 					System.out.print("Hoeveel wil je er van bestellen?: ");
 					int aantal = input.nextInt();	
@@ -129,7 +112,7 @@ public class GenericBestellingMenu {
 					logger.info("id van nieuweBestellingHasArtikel is" + nieuweBestellingHasArtikel.getId());
 
 					nieuweBestelling.bestellingHasArtikelen.add(nieuweBestellingHasArtikel);
-					bestellingHasArtikelService.persist(nieuweBestellingHasArtikel);
+					service.persist(nieuweBestellingHasArtikel);
 
 					logger.info("bestelartikel_id wordt toegevoegd aan het bestelling object");
 
@@ -138,7 +121,7 @@ public class GenericBestellingMenu {
 					logger.info("object nieuweBestelling bevat nu: " + nieuweBestelling);
 					logger.info("bestelling object wordt geupdate met bestelartikel_id en geupdate in bestelling tabel");
 
-					bestellingService.update(nieuweBestelling);
+					service.saveOrUpdate(nieuweBestelling);
 
 					logger.info("de set bestellingHasArtikelen bevat: " + nieuweBestelling.getBestellingHasArtikelen());
 
@@ -159,7 +142,7 @@ public class GenericBestellingMenu {
 
 				logger.info("object nieuweFactuur na  \"nieuweFactuur.setBestelling(nieuweBestelling) \" " + nieuweFactuur);
 
-				nieuweBestellingHasArtikel.setArtikel(artikelService.findById(artikel_id));
+				nieuweBestellingHasArtikel.setArtikel(service.findArtikelById(artikel_id));
 				nieuweBetaling.setBetaalDatum();
 
 
@@ -193,8 +176,8 @@ public class GenericBestellingMenu {
 				nieuweBetaling.setKlant(klant);			
 				nieuweBetaling.setFactuur(nieuweFactuur);
 				
-				factuurService.persist(nieuweFactuur);	
-				betalingService.persist(nieuweBetaling);
+				service.persist(nieuweFactuur);	
+				service.persist(nieuweBetaling);
 
 				logger.info("object nieuweBetaling bevat:" + nieuweBetaling);									
 				logger.info("object nieuweFactuur VOOR  \"nieuweFactuur.betalingSet.add(nieuweBetaling) \" " + nieuweFactuur);
@@ -230,9 +213,9 @@ public class GenericBestellingMenu {
 				}    
 
 
-				Bestelling updateBestelling = bestellingService.findById(bestelling_id);			
+				Bestelling updateBestelling = service.findBestellingById(bestelling_id);			
 				updateBestelling.setBestelDatum();
-				// updateBestelling.setKlant(klantService.findById(klant_id));
+				// updateBestelling.setKlant(service.findById(klant_id));
 
 				logger.info("Klant:" + updateBestelling.getKlant());
 				logger.info("bestelling_id: " + updateBestelling.getId());
@@ -240,11 +223,11 @@ public class GenericBestellingMenu {
 
 				logger.info("bestaandeBestelling bevat " + updateBestelling);
 
-				BestelArtikel updateBestelArtikel = bestellingHasArtikelService.findById(bestelling_id);
+				BestelArtikel updateBestelArtikel = service.findBestelArtikelById(bestelling_id);
 
 				logger.info("bestaandeBestelArtikel bevat " + updateBestelArtikel);
 
-				bestellingService.update(updateBestelling);
+				service.saveOrUpdate(updateBestelling);
 
 				artikel_id = 0;
 
@@ -262,7 +245,7 @@ public class GenericBestellingMenu {
 					}    
 					
 					
-					updateBestelArtikel.setArtikel(artikelService.findById(artikel_id));
+					updateBestelArtikel.setArtikel(service.findArtikelById(artikel_id));
 
 					logger.info("updateBestelArtikel bevat: " + updateBestelArtikel);
 
@@ -273,7 +256,7 @@ public class GenericBestellingMenu {
 					updateBestelArtikel.setBestelling(updateBestelling);
 
 					updateBestelling.bestellingHasArtikelen.add(updateBestelArtikel);
-					bestellingHasArtikelService.persist(updateBestelArtikel);
+					service.persist(updateBestelArtikel);
 
 					logger.info("bestelartikel wordt geupdate");
 
@@ -282,7 +265,7 @@ public class GenericBestellingMenu {
 					logger.info("object nieuweBestelling bevat nu: " + updateBestelling);
 					logger.info("bestelling object wordt geupdate met bestelartikel_id en geupdate in bestelling tabel");
 
-					bestellingService.update(updateBestelling);
+					service.saveOrUpdate(updateBestelling);
 
 					logger.info("de set bestellingHasArtikelen bevat: " + updateBestelling.getBestellingHasArtikelen());
 
@@ -302,7 +285,7 @@ public class GenericBestellingMenu {
 				System.out.print("Voer het bestelling id die u zoekt: ");
 				bestelling_id = input.nextLong();
 
-				System.out.println(bestellingService.findById(bestelling_id));	
+				System.out.println(service.findBestellingById(bestelling_id));	
 				GenericBestellingMenu.main(null);
 				break;
 
@@ -319,16 +302,16 @@ public class GenericBestellingMenu {
 					System.out.println();
 				}    
 				
-				//Bestelling deleteBestelling = bestellingService.findById(bestelling_id);
+				//Bestelling deleteBestelling = service.findById(bestelling_id);
 
-				bestellingService.delete(bestelling_id);
+				service.deleteBestelling(bestelling_id);
 
 				GenericBestellingMenu.main(null);
 				break;
 
 			case 5:
 				logger.info("findAll bestellingen aangeroepen");
-				List<Bestelling> bestellingen = bestellingService.findAll();
+				List<Bestelling> bestellingen = service.findAllBestellingen();
 
 				System.out.println("De volgende bestellingen staan in het assortiment:");
 
@@ -341,14 +324,14 @@ public class GenericBestellingMenu {
 				
 				
 			case 6:
-					bestellingService.deleteAll();
+					service.deleteAllBestellingen();
 					
 				GenericBestellingMenu.main(null);
 				break;
 
 				
 			case 7:
-				MainApp.main(null);
+				GenericMainApp.main(null);
 				break;
 				
 			case 8:
