@@ -9,7 +9,6 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import dao.GenericDao;
-import dao.KlantDao;
 import pojo.*;
 
 @SuppressWarnings("unchecked")  
@@ -18,39 +17,39 @@ public class GenericDaoService<T, Id extends Serializable> {
 	
 	@Autowired
 	@Qualifier("klantDao")
-	private GenericDao klantDao;
+	private GenericDao<Klant,Long> klantDao;
 	
 	@Autowired
 	@Qualifier("accountDao")
-	private GenericDao accountDao;
+	private GenericDao<Account,Long> accountDao;
 	
 	@Autowired
 	@Qualifier("adresDao")
-	private GenericDao adresDao;
+	private GenericDao<Adres,Long> adresDao;
 	
 	@Autowired
 	@Qualifier("klantAdresDao")
-	private GenericDao klantAdresDao;
+	private GenericDao<KlantAdres,Long> klantAdresDao;
 	
 	@Autowired
 	@Qualifier("bestellingDao")
-	private GenericDao bestellingDao;
+	private GenericDao<Bestelling,Long> bestellingDao;
 	
 	@Autowired
 	@Qualifier("artikelDao")
-	private GenericDao artikelDao;
+	private GenericDao<Artikel,Long> artikelDao;
 	
 	@Autowired
 	@Qualifier("bestelArtikelDao")
-	private GenericDao bestelArtikelDao;
+	private GenericDao<BestelArtikel,Long> bestelArtikelDao;
 	
 	@Autowired
 	@Qualifier("factuurDao")
-	private GenericDao factuurDao;
+	private GenericDao<Factuur,Long> factuurDao;
 	
 	@Autowired
 	@Qualifier("betalingDao")
-	private GenericDao betalingDao;
+	private GenericDao<Betaling,Long> betalingDao;
 	
 	
 	//===== Klant gedeelte =====
@@ -99,7 +98,7 @@ public class GenericDaoService<T, Id extends Serializable> {
 	
 	@Transactional
 	public void saveOrUpdate(Account entity) {
-		klantDao.createOrUpdate(entity);
+		accountDao.createOrUpdate(entity);
 	}
 	
 	@Transactional
@@ -185,13 +184,13 @@ public class GenericDaoService<T, Id extends Serializable> {
 	public void deleteKlantAdres(Long id) {
 		KlantAdres klantAdres = (KlantAdres) klantAdresDao.findById(id);
 		System.out.println(klantAdres + "will be deleted.");
-		adresDao.delete(klantAdres);
+		klantAdresDao.delete(klantAdres);
 	}
 	
 	@Transactional
-	public List<Adres> findAllKlantAdressen() {
-		List<Adres> klanten = klantAdresDao.findAll();
-		return klanten;
+	public List<KlantAdres> findAllKlantAdressen() {
+		List<KlantAdres> klantAdressen = klantAdresDao.findAll();
+		return klantAdressen;
 	}
 
 	@Transactional

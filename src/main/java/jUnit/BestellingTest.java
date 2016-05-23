@@ -9,9 +9,12 @@ import org.junit.Before;
 import org.junit.Test;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.context.ApplicationContext;
+import org.springframework.context.annotation.AnnotationConfigApplicationContext;
 
 import pojo.*;
 import service.*;
+import springconfig.AppConfig;
 
 
 public class BestellingTest {
@@ -35,16 +38,9 @@ public class BestellingTest {
 	private Bestelling nieuweBestelling = new Bestelling();
 	private Factuur nieuweFactuur = new Factuur();
 	private Betaling nieuweBetaling = new Betaling();
-
-	private KlantDaoService klantService = new KlantDaoService();
-	private ArtikelDaoService artikelService = new ArtikelDaoService();
-	private AdresDaoService adresService = new AdresDaoService();
-	private AccountDaoService accountService = new AccountDaoService();
-	private BestelArtikelDaoService bestelArtikelService = new BestelArtikelDaoService();
-	private BestellingDaoService bestellingService = new BestellingDaoService();
-	private BetalingDaoService betalingService = new BetalingDaoService();
-	private FactuurDaoService factuurService = new FactuurDaoService();
-	private KlantAdresDaoService klantAdresService = new KlantAdresDaoService();
+	
+	ApplicationContext ctx = new AnnotationConfigApplicationContext(AppConfig.class);
+	private GenericDaoService service = (GenericDaoService) ctx.getBean("genericDaoService");
 
 
 	@Before
@@ -54,44 +50,44 @@ public class BestellingTest {
 		klant.setTussenvoegsel("van");
 		klant.setAchternaam("BestellingDao");
 		klant.setEmail("test@test.com");
-		klantService.persist(klant);
+		service.persist(klant);
 
 		artikel.setArtikel_naam("jUnitTest");
 		artikel.setArtikel_nummer();
 		artikel.setArtikel_prijs(69.69);
 		artikel.setOmschrijving("jUnit testartikel");
-		artikelService.persist(artikel);
+		service.persist(artikel);
 
 		adres.setHuisnummer(123);
 		adres.setPostcode("90210");
 		adres.setStraatnaam("jUnitstraat");
 		adres.setToevoeging("A");
 		adres.setWoonplaats("Amsterdam");
-		adresService.persist(adres);
+		service.persist(adres);
 
 		klantAdres.setKlant(klant);
 		klantAdres.setAdres(adres);
 		klantAdres.setAdresType(KlantAdres.AdresType.Postadres);
-		klantAdresService.persist(klantAdres);
+		service.persist(klantAdres);
 
 		account.setAccountNaam("jUnit account");
 		account.setDateCreated();
 		account.setKlant(klant);
-		accountService.persist(account);
+		service.persist(account);
 
 		bestelling.setBestelDatum();
 		bestelling.setBestelNummer();
 		bestelling.setKlant(klant);
-		bestellingService.persist(bestelling);
+		service.persist(bestelling);
 
 		bestelArtikel.setArtikel(artikel);
 		bestelArtikel.setAantal(69);
 		bestelArtikel.setBestelling(bestelling);
 		bestelling.bestellingHasArtikelen.add(bestelArtikel);
-		bestelArtikelService.persist(bestelArtikel);
+		service.persist(bestelArtikel);
 
 		bestelling.setBestellingHasArtikelen(bestelling.bestellingHasArtikelen);
-		bestellingService.update(bestelling);
+		service.saveOrUpdate(bestelling);
 
 		factuur.setFactuurDatum();
 		factuur.setFactuurNummer();
@@ -106,16 +102,16 @@ public class BestellingTest {
 
 		factuur.betalingSet.add(betaling);
 
-		factuurService.persist(factuur);	
+		service.persist(factuur);	
 	}
 
 
 	@After
 	public void tearDown() {
 
-		klantService.delete(klant.getId());
-		artikelService.delete(artikel.getId());
-		adresService.delete(adres.getId());		
+		service.deleteKlant(klant.getId());
+		service.deleteArtikel(artikel.getId());
+		service.deleteAdres(adres.getId());		
 	} 
 
 
@@ -127,22 +123,22 @@ public class BestellingTest {
 		nieuweBestelling.setBestelDatum();
 		nieuweBestelling.setBestelNummer();
 		nieuweBestelling.setKlant(klant);
-		bestellingService.persist(nieuweBestelling);
+		service.persist(nieuweBestelling);
 
 		nieuweArtikel.setArtikel_naam("jUnitCreate");
 		nieuweArtikel.setArtikel_nummer();
 		nieuweArtikel.setArtikel_prijs(123.99);
 		nieuweArtikel.setOmschrijving("jUnit createartikel");
-		artikelService.persist(nieuweArtikel);
+		service.persist(nieuweArtikel);
 
 		nieuweBestelArtikel.setArtikel(nieuweArtikel);
 		nieuweBestelArtikel.setAantal(123);
 		nieuweBestelArtikel.setBestelling(nieuweBestelling);
 		nieuweBestelling.bestellingHasArtikelen.add(nieuweBestelArtikel);
-		bestelArtikelService.persist(nieuweBestelArtikel);
+		service.persist(nieuweBestelArtikel);
 
 		nieuweBestelling.setBestellingHasArtikelen(nieuweBestelling.bestellingHasArtikelen);
-		bestellingService.update(nieuweBestelling);
+		service.saveOrUpdate(nieuweBestelling);
 
 		nieuweFactuur.setFactuurDatum();
 		nieuweFactuur.setFactuurNummer();
@@ -157,7 +153,7 @@ public class BestellingTest {
 
 		nieuweFactuur.betalingSet.add(nieuweBetaling);
 
-		factuurService.persist(nieuweFactuur);	
+		service.persist(nieuweFactuur);	
 
 		assertEquals("the first bestelling_id + 1 must equal the second bestelling_id", ((int)bestelling.getId() + 1), (int)nieuweBestelling.getId());
 		assertEquals("the first factuur_id + 1 must equal the second factuur_id", ((int)factuur.getId() + 1), (int)nieuweFactuur.getId());
@@ -171,7 +167,7 @@ public class BestellingTest {
 	@Test
 	public void testUpdate() {
 
-		List<BestelArtikel> bestelArtikelList = bestelArtikelService.findAll();
+		List<BestelArtikel> bestelArtikelList = service.findAllBestelArtikelen();
 		assertEquals(1, bestelArtikelList.size());
 
 		bestelling.setBestelNummer();	//update bestelnummer met random waarde
@@ -179,19 +175,19 @@ public class BestellingTest {
 		nieuweArtikel.setArtikel_nummer();
 		nieuweArtikel.setArtikel_prijs(123.99);
 		nieuweArtikel.setOmschrijving("jUnit createartikel");
-		artikelService.persist(nieuweArtikel);
+		service.persist(nieuweArtikel);
 
 		assertNotSame(artikel, nieuweArtikel);
 
 		bestelArtikel.setArtikel(nieuweArtikel);	// vervang vorige bestelde artikel met nieuwe artikel
 		bestelArtikel.setAantal(50);
-		bestelArtikelService.update(bestelArtikel);
+		service.saveOrUpdate(bestelArtikel);
 
 		nieuweArtikel2.setArtikel_nummer();
 		nieuweArtikel2.setArtikel_prijs(55.50);
 		nieuweArtikel2.setOmschrijving("jUnit createartikel2");
 		nieuweArtikel2.setArtikel_naam("jUnitCreate2");
-		artikelService.persist(nieuweArtikel2);
+		service.persist(nieuweArtikel2);
 
 		assertNotSame(nieuweArtikel, nieuweArtikel2);
 
@@ -201,16 +197,16 @@ public class BestellingTest {
 
 		//bestelling.bestellingHasArtikelen.add(nieuweBestelArtikel); // voeg nog een nieuwe artikel toe
 
-		bestelArtikelService.persist(nieuweBestelArtikel); // voeg nog een nieuwe artikel toe
+		service.persist(nieuweBestelArtikel); // voeg nog een nieuwe artikel toe
 
 		betaling.setBetaalwijze(Betaling.Betaalwijze.Contant);    
 		betaling.setBetalingsGegevens("UPDATED");
-		betalingService.update(betaling);
+		service.update(betaling);
 
 		factuur.setFactuurNummer();
-		factuurService.update(factuur);
+		service.update(factuur);
 
-		bestelArtikelList = bestelArtikelService.findAll();		
+		bestelArtikelList = service.findAllBestelArtikelen();
 		assertEquals(2, bestelArtikelList.size());
 	} 
 
@@ -218,34 +214,34 @@ public class BestellingTest {
 	@Test
 	public void testFind() {
 
-		nieuweBestelling = bestellingService.findById(bestelling.getId());
+		nieuweBestelling = service.findBestellingById(bestelling.getId());
 		assertNotNull(nieuweBestelling);
 
-		List<Bestelling> bestellingen = bestellingService.findAll();			
+		List<Bestelling> bestellingen = service.findAllBestellingen();		
 		assertNotNull(bestellingen);
 
-		nieuweFactuur = factuurService.findById(factuur.getId());
+		nieuweFactuur = service.findFactuurById(factuur.getId());
 		assertNotNull(nieuweFactuur);
 
-		List<Factuur> facturen = factuurService.findAll();			
+		List<Factuur> facturen = service.findAllFacturen();			
 		assertNotNull(facturen);	
 
-		nieuweBetaling = betalingService.findById(betaling.getId());
+		nieuweBetaling = service.findBetalingById(betaling.getId());
 		assertNotNull(nieuweBetaling);
 
-		List<Betaling> betalingen = betalingService.findAll();			
+		List<Betaling> betalingen = service.findAllBetalingen();			
 		assertNotNull(betalingen);	
 
-		nieuweBestelArtikel = bestelArtikelService.findById(bestelArtikel.getId());
+		nieuweBestelArtikel = service.findBestelArtikelById(bestelArtikel.getId());
 		assertNotNull(nieuweBestelArtikel);
 
-		List<BestelArtikel> bestelArtikelen = bestelArtikelService.findAll();			
+		List<BestelArtikel> bestelArtikelen = service.findAllBestelArtikelen();			
 		assertNotNull(bestelArtikelen);	
 
-		nieuweArtikel = artikelService.findById(artikel.getId());
+		nieuweArtikel = service.findArtikelById(artikel.getId());
 		assertNotNull(nieuweArtikel);
 
-		List<Artikel> artikelen = artikelService.findAll();			
+		List<Artikel> artikelen = service.findAllArtikelen();			
 		assertNotNull(artikelen);	
 	} 
 
@@ -253,11 +249,11 @@ public class BestellingTest {
 	@Test
 	public void testDelete(){
 		
-		bestellingService.delete(bestelling.getId());
-		assertNull("bestelling must have been deleted", bestellingService.findById(bestelling.getId()));
-		assertNull("factuur must have been deleted", factuurService.findById(factuur.getId()));
-		assertNull("betaling must have been deleted", betalingService.findById(betaling.getId()));
-		assertNull("bestelArtikel must have been deleted", bestelArtikelService.findById(bestelArtikel.getId()));
+		service.deleteBestelling(bestelling.getId());
+		assertNull("bestelling must have been deleted", service.findBestellingById(bestelling.getId()));
+		assertNull("factuur must have been deleted", service.findFactuurById(factuur.getId()));
+		assertNull("betaling must have been deleted", service.findBetalingById(betaling.getId()));
+		assertNull("bestelArtikel must have been deleted", service.findBestelArtikelById(bestelArtikel.getId()));
 	} 
 
 
@@ -265,20 +261,20 @@ public class BestellingTest {
 	@Test
 	public void testDeleteAll(){
 
-		bestellingService.deleteAll();
-		assertEquals("List bestelling must be empty", 0, bestellingService.findAll().size());
+		service.deleteAllBestellingen();
+		assertEquals("List bestelling must be empty", 0, service.findAllBestellingen().size());
 
-		bestelArtikelService.deleteAll();
-		assertEquals("List bestelArtikel must be empty", 0, bestelArtikelService.findAll().size());
+		service.deleteAllBestelArtikellen();
+		assertEquals("List bestelArtikel must be empty", 0, service.findAllBestelArtikelen().size());
 
-		factuurService.deleteAll();
-		assertEquals("List factuur must be empty", 0, factuurService.findAll().size());
+		service.deleteAllFacturen();
+		assertEquals("List factuur must be empty", 0, service.findAllFacturen().size());
 
-		betalingService.deleteAll();
-		assertEquals("List betaling must be empty", 0, betalingService.findAll().size());
+		service.deleteAllKlantBetalingen();
+		assertEquals("List betaling must be empty", 0, service.findAllBetalingen().size());
 				
-		/* artikelService.deleteAll();
-		assertEquals("List artikel must be empty", 0, artikelService.findAll().size());
+		/* service.deleteAll();
+		assertEquals("List artikel must be empty", 0, service.findAll().size());
 		*/
 	} 
 

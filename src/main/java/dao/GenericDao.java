@@ -22,7 +22,7 @@ import pojo.*;
 @SuppressWarnings("unchecked")
 //@Transactional
 @Repository("genericDao")
-public abstract class GenericDao<T, Id extends Serializable> implements GenericDaoInterface<T, Id> {
+public class GenericDao<T, Id extends Serializable> implements GenericDaoInterface<T, Id> {
 
 	private static final Logger logger =  LoggerFactory.getLogger(GenericDao.class);
 	

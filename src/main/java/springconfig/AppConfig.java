@@ -5,6 +5,7 @@ import java.util.Properties;
 import javax.sql.DataSource;
 
 import org.hibernate.SessionFactory;
+import org.springframework.beans.factory.annotation.Autowire;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.ComponentScan;
@@ -15,10 +16,11 @@ import org.springframework.orm.hibernate4.LocalSessionFactoryBean;
 import org.springframework.orm.hibernate5.LocalSessionFactoryBuilder;
 import org.springframework.transaction.annotation.EnableTransactionManagement;
 
+import dao.GenericDao;
 import pojo.*;
 
 @Configuration
-@ComponentScan({"POJO", "Dao", "Service","main" })
+@ComponentScan({"POJO", "Service","main" })
 @EnableTransactionManagement
 public class AppConfig {
 	
@@ -58,4 +60,53 @@ public class AppConfig {
 	    properties.put("hibernate.dialect", "org.hibernate.dialect.MySQLDialect");
 	    return properties;
 	}
+	
+	
+	   @Bean
+    public GenericDao<Klant, Long> klantDao() {
+        return new GenericDao<Klant, Long>(Klant.class);
+    }
+
+	   @Bean
+    public GenericDao<Account, Long> accountDao() {
+        return new GenericDao<Account, Long>(Account.class);
+    }
+
+	   @Bean
+    public GenericDao<Adres, Long> adresDao() {
+        return new GenericDao<Adres, Long>(Adres.class);
+    }
+	
+	   @Bean
+    public GenericDao<Artikel, Long> artikelDao() {
+        return new GenericDao<Artikel, Long>(Artikel.class);
+    }
+    
+	   @Bean
+    public GenericDao<BestelArtikel, Long> bestelArtikelDao() {
+        return new GenericDao<BestelArtikel, Long>(BestelArtikel.class);
+    }
+	
+	   @Bean
+    public GenericDao<Bestelling, Long> bestellingDao() {
+        return new GenericDao<Bestelling, Long>(Bestelling.class);
+    }
+	
+	   @Bean
+    public GenericDao<Betaling, Long> betalingDao() {
+        return new GenericDao<Betaling, Long>(Betaling.class);
+    }
+	
+	   @Bean
+    public GenericDao<Factuur, Long> factuurDao() {
+        return new GenericDao<Factuur, Long>(Factuur.class);
+    }
+	
+	   @Bean
+    public GenericDao<KlantAdres, Long> klantAdresDao() {
+        return new GenericDao<KlantAdres, Long>(KlantAdres.class);
+    }
+	
+	
+	
 }
