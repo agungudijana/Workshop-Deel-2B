@@ -54,7 +54,7 @@ public class GenericDao<T, Id extends Serializable> implements GenericDaoInterfa
 		//logger.info(clazz.getName() + "findByID method starts");
 		//String naam = clazz.getName();
 		T entity = (T)sessionFactory.getCurrentSession().get(clazz, id);
-		logger.info(clazz + "Klant.findByID method about to end");
+		logger.info(clazz + "findByID method about to end");
 		return entity;
 	}
 	
