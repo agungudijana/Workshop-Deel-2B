@@ -13,6 +13,8 @@
 </head>
 <body>
     <form method="POST" action='KlantController' name="frmAddKlant">
+    	<input type="hidden" readonly="readonly" name="klantId"
+            value="<c:out value="${klant.id}" />" /> <br /> 
         Voornaam : <input
             type="text" name="voornaam"
             value="<c:out value="${klant.voornaam}" />" /> <br /> 
@@ -23,8 +25,8 @@
             type="text" name="tussenvoegsel"
             value="<c:out value="${klant.tussenvoegsel}" />" /> <br /> 
         Email : <input type="text" name="email"
-            value="<c:out value="${user.email}" />" /> <br /> <input
-            type="submit" value="Submit" />
+            value="<c:out value="${klant.email}" />" /> <br /> <input
+            type="submit" value="Verzenden" />
     </form>
 </body>
 </html>

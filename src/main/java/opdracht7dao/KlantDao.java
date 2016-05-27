@@ -52,8 +52,7 @@ public class KlantDao {
     public void updateKlant(Klant klant) {
         try {
             PreparedStatement preparedStatement = connection
-                    .prepareStatement("update klant set voornaam=?, achternaam=?, tussenvoegsel=?, email=?" +
-                            "where klant_id=?");
+                    .prepareStatement("update klant set voornaam=?, achternaam=?, tussenvoegsel=?, email=? where klant_id=?");
             // Parameters start with 1
             preparedStatement.setString(1, klant.getVoornaam());
             preparedStatement.setString(2, klant.getAchternaam());

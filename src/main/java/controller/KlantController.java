@@ -3,6 +3,7 @@
 package controller;
 
 import java.io.IOException;
+import java.io.PrintWriter;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
@@ -39,10 +40,8 @@ public class KlantController extends HttpServlet {
         } else if (action.equalsIgnoreCase("edit")){
             forward = INSERT_OR_EDIT;
             int klantId = Integer.parseInt(request.getParameter("klantId"));
-            Klant klant = dao.getKlantById(klantId);
-            //dao.updateKlant(klant);  // added by AU. 20.34. 27.05.16
-           //request.setAttribute("klanten", klant);
-            request.setAttribute("klanten", dao.getAllKlanten());  
+            Klant klant = dao.getKlantById(klantId);         
+            request.setAttribute("klanten", klant);
         } else if (action.equalsIgnoreCase("listKlant")){
             forward = LIST_KLANT;
             request.setAttribute("klanten", dao.getAllKlanten());
@@ -60,7 +59,8 @@ public class KlantController extends HttpServlet {
         klant.setAchternaam(request.getParameter("achternaam"));
         klant.setTussenvoegsel(request.getParameter("tussenvoegsel"));
         klant.setEmail(request.getParameter("email"));
-        String klantid = request.getParameter("klant_id");
+        String klantid = request.getParameter("klantId");
+       
         if(klantid == null || klantid.isEmpty())
         {
             dao.addKlant(klant);
@@ -69,7 +69,8 @@ public class KlantController extends HttpServlet {
         {
             klant.setId(Integer.parseInt(klantid));
             dao.updateKlant(klant);
-        }
+        } 
+        
         RequestDispatcher view = request.getRequestDispatcher(LIST_KLANT);
         request.setAttribute("klanten", dao.getAllKlanten());
         view.forward(request, response);
