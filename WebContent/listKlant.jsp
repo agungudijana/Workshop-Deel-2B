@@ -23,13 +23,13 @@
         <tbody>
             <c:forEach items="${klanten}" var="klant">
                 <tr>
-                    <td><c:out value="${klant.klant_id}" /></td>
+                    <td><c:out value="${klant.id}" /></td>
                     <td><c:out value="${klant.voornaam}" /></td>
                     <td><c:out value="${klant.achternaam}" /></td>
            			<td><c:out value="${klant.tussenvoegsel}" /></td>
                     <td><c:out value="${klant.email}" /></td>
-                    <td><a href="KlantController?action=edit&klantId=<c:out value="${klant.klant_id}"/>">Aanpassen</a></td>
-                    <td><a href="KlantController?action=delete&klantId=<c:out value="${klant.klant_id}"/>">Verwijderen</a></td>
+                    <td><a href="KlantController?action=edit&klantId=<c:out value="${klant.id}"/>">Aanpassen</a></td>
+                    <td><a href="KlantController?action=delete&klantId=<c:out value="${klant.id}"/>">Verwijderen</a></td>
                 </tr>
             </c:forEach>
         </tbody>

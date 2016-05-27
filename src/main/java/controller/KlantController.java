@@ -35,15 +35,17 @@ public class KlantController extends HttpServlet {
             int klantId = Integer.parseInt(request.getParameter("klantId"));
             dao.deleteKlant(klantId);
             forward = LIST_KLANT;
-            request.setAttribute("klant", dao.getAllKlanten());    
+            request.setAttribute("klanten", dao.getAllKlanten());    
         } else if (action.equalsIgnoreCase("edit")){
             forward = INSERT_OR_EDIT;
             int klantId = Integer.parseInt(request.getParameter("klantId"));
             Klant klant = dao.getKlantById(klantId);
-            request.setAttribute("klant", klant);
+            //dao.updateKlant(klant);  // added by AU. 20.34. 27.05.16
+           //request.setAttribute("klanten", klant);
+            request.setAttribute("klanten", dao.getAllKlanten());  
         } else if (action.equalsIgnoreCase("listKlant")){
             forward = LIST_KLANT;
-            request.setAttribute("klant", dao.getAllKlanten());
+            request.setAttribute("klanten", dao.getAllKlanten());
         } else {
             forward = INSERT_OR_EDIT;
         }
@@ -58,7 +60,7 @@ public class KlantController extends HttpServlet {
         klant.setAchternaam(request.getParameter("achternaam"));
         klant.setTussenvoegsel(request.getParameter("tussenvoegsel"));
         klant.setEmail(request.getParameter("email"));
-        String klantid = request.getParameter("klantid");
+        String klantid = request.getParameter("klant_id");
         if(klantid == null || klantid.isEmpty())
         {
             dao.addKlant(klant);
@@ -69,7 +71,7 @@ public class KlantController extends HttpServlet {
             dao.updateKlant(klant);
         }
         RequestDispatcher view = request.getRequestDispatcher(LIST_KLANT);
-        request.setAttribute("klants", dao.getAllKlanten());
+        request.setAttribute("klanten", dao.getAllKlanten());
         view.forward(request, response);
     }
 }

@@ -13,8 +13,6 @@
 </head>
 <body>
     <form method="POST" action='KlantController' name="frmAddKlant">
-        Klant ID : <input type="text" readonly="readonly" name="klantid"
-            value="<c:out value="${klant.klant_id}" />" /> <br /> 
         Voornaam : <input
             type="text" name="voornaam"
             value="<c:out value="${klant.voornaam}" />" /> <br /> 

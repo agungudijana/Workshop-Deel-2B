@@ -74,7 +74,7 @@ public class KlantDao {
             ResultSet rs = statement.executeQuery("select * from klant");
             while (rs.next()) {
                 Klant klant = new Klant();
-                klant.setId(rs.getInt("klant_id"));
+                klant.setId(rs.getLong("klant_id"));
                 klant.setVoornaam(rs.getString("voornaam"));
                 klant.setAchternaam(rs.getString("achternaam"));
                 klant.setTussenvoegsel(rs.getString("tussenvoegsel"));
@@ -97,7 +97,7 @@ public class KlantDao {
             ResultSet rs = preparedStatement.executeQuery();
 
             if (rs.next()) {
-            	 klant.setId(rs.getInt("klant_id"));
+            	 klant.setId(rs.getLong("klant_id"));
                  klant.setVoornaam(rs.getString("voornaam"));
                  klant.setAchternaam(rs.getString("achternaam"));
                  klant.setTussenvoegsel(rs.getString("tussenvoegsel"));
