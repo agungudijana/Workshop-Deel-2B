@@ -1,6 +1,6 @@
 // created especially for opdracht 7b. Workshop Part 2
 
-package opdracht7dao;
+package dao;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;
