@@ -6,7 +6,7 @@
 <html>
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=EUC-KR">
-<title>Show All Users</title>
+<title>Klantenadministratie</title>
 </head>
 <body>
     <table border=1>
