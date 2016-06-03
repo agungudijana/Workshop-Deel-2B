@@ -24,6 +24,10 @@
                         <td><input type="password" name="password" value="" /></td>
                     </tr>
                     <tr>
+                        <td>Voer wachtwoord nogmaals in</td>
+                        <td><input type="password" name="password2" value="" /></td>
+                    </tr>
+                    <tr>
                         <td><input type="submit" value="Verzenden" /></td>
                         <td><input type="reset" value="Reset" /></td>
                     </tr>
