@@ -35,5 +35,6 @@
         </tbody>
     </table>
     <p><a href="KlantController?action=insert">Voeg nieuwe klant toe</a></p>
+    <p><a href="logout.jsp">Log uit</a></p>
 </body>
 </html>

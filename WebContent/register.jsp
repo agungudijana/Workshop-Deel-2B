@@ -3,15 +3,15 @@
 <html>
     <head>
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-        <title>JSP Example</title>
+        <title>Registration</title>
     </head>
     <body bgcolor="silver">
-        <form method="post" action="login.jsp">
+        <form method="post" action="userRegistration.jsp">
             <center>
-            <table border="0" width="30%" cellpadding="3">
+            <table border="1" width="30%" cellpadding="5">
                 <thead>
                     <tr>
-                        <th colspan="3">Loginscherm</th>
+                        <th colspan="3">Vul onderstaand formulier in</th>
                     </tr>
                 </thead>
                 <tbody>
@@ -28,7 +28,7 @@
                         <td><input type="reset" value="Reset" /></td>
                     </tr>
                     <tr>
-                        <td colspan="2"><a href="register.jsp">Hier Registreren</a></td>
+                        <td colspan="3">Oeps, ik herinner me dat ik toch al geregistreerd ben!! <br><a href="index.jsp">Ga naar het inlogscherm</a></td>
                     </tr>
                 </tbody>
             </table>
