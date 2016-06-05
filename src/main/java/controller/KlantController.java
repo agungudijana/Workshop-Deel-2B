@@ -41,7 +41,7 @@ public class KlantController extends HttpServlet {
             forward = INSERT_OR_EDIT;
             int klantId = Integer.parseInt(request.getParameter("klantId"));
             Klant klant = dao.getKlantById(klantId);         
-            request.setAttribute("klanten", klant);
+            request.setAttribute("klant", klant);
         } else if (action.equalsIgnoreCase("listKlant")){
             forward = LIST_KLANT;
             request.setAttribute("klanten", dao.getAllKlanten());
