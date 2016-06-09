@@ -139,11 +139,12 @@ CREATE TABLE IF NOT EXISTS `klantadres` (
   CONSTRAINT `klant_id_fk` FOREIGN KEY (`klant_id`) REFERENCES `klant` (`klant_id`) ON DELETE no action ON UPDATE no action
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
---added by AU, 2 June 2016
+-- added by AU, 2 June 2016
 CREATE TABLE IF NOT EXISTS `useraccounts` (
   `id` int(10) unsigned NOT NULL auto_increment,
   `username` varchar(45) NOT NULL,
   `password` varchar(100) NOT NULL,
+  `regdate` DATE NOT NULL,
   PRIMARY KEY (`id`),
   UNIQUE KEY `username_UNIQUE` (`username`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
